@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fluxsum-main
+  namespace: fluxsum
+spec:
+  selector:
+    app: fluxsum-main
+  ports:
+    - port: 80
+      targetPort: 80
+  type: ClusterIP

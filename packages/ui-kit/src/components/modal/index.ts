@@ -1,0 +1,16 @@
+export {
+  Modal,
+  Dialog,
+  DialogPortal,
+  DialogOverlay,
+  DialogClose,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogFooter,
+  DialogTitle,
+  DialogDescription,
+  dialogContentVariants,
+  type ModalProps,
+  type DialogContentProps,
+} from "./modal";

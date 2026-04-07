@@ -1,0 +1,45 @@
+{
+  "app": {
+    "name": "Fluxsum",
+    "description": "一站式服务全球"
+  },
+  "nav": {
+    "home": "首页",
+    "about": "关于我们",
+    "contact": "联系我们",
+    "login": "登录",
+    "register": "注册",
+    "logout": "退出登录",
+    "settings": "设置",
+    "profile": "个人资料"
+  },
+  "common": {
+    "loading": "加载中...",
+    "error": "错误",
+    "success": "成功",
+    "confirm": "确认",
+    "cancel": "取消",
+    "save": "保存",
+    "delete": "删除",
+    "edit": "编辑",
+    "create": "创建",
+    "search": "搜索",
+    "filter": "筛选",
+    "sort": "排序",
+    "refresh": "刷新",
+    "back": "返回",
+    "next": "下一步",
+    "previous": "上一步",
+    "submit": "提交",
+    "reset": "重置",
+    "close": "关闭",
+    "open": "打开",
+    "yes": "是",
+    "no": "否"
+  },
+  "footer": {
+    "copyright": "© {{year}} Fluxsum. 保留所有权利。",
+    "privacy": "隐私政策",
+    "terms": "服务条款"
+  }
+}

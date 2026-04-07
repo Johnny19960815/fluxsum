@@ -1,0 +1,46 @@
+{
+  "name": "fluxsum",
+  "version": "0.1.0",
+  "private": true,
+  "description": "一站式服务全球",
+  "packageManager": "bun@1.3.11",
+  "engines": {
+    "node": ">=20.0.0",
+    "bun": ">=1.3.0"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "dev:main": "turbo run dev --filter=@fluxsum/main",
+    "dev:website": "turbo run dev --filter=@fluxsum/website",
+    "dev:admin": "turbo run dev --filter=@fluxsum/admin",
+    "i18n:generate": "turbo run generate --filter=@fluxsum/i18n",
+    "i18n:validate": "turbo run validate --filter=@fluxsum/i18n",
+    "i18n:upload": "turbo run upload --filter=@fluxsum/i18n",
+    "build": "turbo run build",
+    "build:main": "turbo run build --filter=@fluxsum/main",
+    "build:website": "turbo run build --filter=@fluxsum/website",
+    "build:admin": "turbo run build --filter=@fluxsum/admin",
+    "lint": "turbo run lint",
+    "type-check": "turbo run type-check",
+    "test": "turbo run test",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "proto:gen": "turbo run proto:gen",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.1",
+    "@types/node": "^20.12.7",
+    "eslint": "^8.57.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.14",
+    "turbo": "^2.0.3",
+    "typescript": "^5.4.5"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": ["eslint --fix", "prettier --write"],
+    "*.{json,md,yaml,yml}": ["prettier --write"]
+  }
+}

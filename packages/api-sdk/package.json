@@ -1,0 +1,36 @@
+{
+  "name": "@fluxsum/api-sdk",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "generate": "buf generate ../proto",
+    "lint": "eslint src/",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist node_modules .turbo"
+  },
+  "dependencies": {
+    "@connectrpc/connect": "^1.4.0",
+    "@connectrpc/connect-web": "^1.4.0",
+    "@bufbuild/protobuf": "^1.9.0"
+  },
+  "devDependencies": {
+    "@fluxsum/typescript-config": "workspace:*",
+    "@bufbuild/buf": "^1.30.0",
+    "@bufbuild/protoc-gen-es": "^1.9.0",
+    "@connectrpc/protoc-gen-connect-es": "^1.4.0",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5"
+  }
+}

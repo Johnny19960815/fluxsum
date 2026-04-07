@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package api.v1;
+
+option go_package = "github.com/fluxsum/api/gen/api/v1;apiv1";
+
+message HealthCheckRequest {}
+
+message HealthCheckResponse {
+  enum ServingStatus {
+    SERVING_STATUS_UNSPECIFIED = 0;
+    SERVING_STATUS_SERVING = 1;
+    SERVING_STATUS_NOT_SERVING = 2;
+  }
+  ServingStatus status = 1;
+}
+
+service HealthService {
+  rpc Check(HealthCheckRequest) returns (HealthCheckResponse) {}
+}

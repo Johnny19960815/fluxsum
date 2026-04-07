@@ -1,0 +1,9 @@
+packages:
+  # 前端应用
+  - "apps/*"
+  # 后端服务
+  - "services/*"
+  # 共享包
+  - "packages/*"
+  # Proto 生成的 SDK
+  - "proto"

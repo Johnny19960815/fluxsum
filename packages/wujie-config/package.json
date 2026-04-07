@@ -1,0 +1,36 @@
+{
+  "name": "@fluxsum/wujie-config",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint src/",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist node_modules .turbo"
+  },
+  "dependencies": {
+    "wujie": "^1.0.22",
+    "wujie-react": "^1.0.14"
+  },
+  "devDependencies": {
+    "@fluxsum/typescript-config": "workspace:*",
+    "@types/react": "^18.3.1",
+    "react": "^18.3.1",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0"
+  }
+}
