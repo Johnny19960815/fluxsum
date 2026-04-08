@@ -2,32 +2,52 @@
 
 import * as React from "react";
 import * as SelectPrimitive from "@radix-ui/react-select";
-import { Check, ChevronDown, ChevronUp } from "lucide-react";
+import { Check, ChevronDown, ChevronUp, X } from "lucide-react";
+import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../../lib/utils";
+
+const selectTriggerVariants = cva(
+  [
+    "flex w-full items-center justify-between rounded-md border border-input bg-background",
+    "ring-offset-background placeholder:text-muted-foreground",
+    "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+    "disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
+    "transition-colors",
+  ],
+  {
+    variants: {
+      size: {
+        sm: "h-8 px-2.5 py-1 text-xs",
+        default: "h-10 px-3 py-2 text-sm",
+        lg: "h-11 px-4 py-2.5 text-base",
+      },
+    },
+    defaultVariants: {
+      size: "default",
+    },
+  }
+);
 
 const Select = SelectPrimitive.Root;
 const SelectGroup = SelectPrimitive.Group;
 const SelectValue = SelectPrimitive.Value;
 
+export interface SelectTriggerProps
+  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>,
+    VariantProps<typeof selectTriggerVariants> {}
+
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
->(({ className, children, ...props }, ref) => (
+  SelectTriggerProps
+>(({ className, size, children, ...props }, ref) => (
   <SelectPrimitive.Trigger
     ref={ref}
-    className={cn(
-      "flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm",
-      "ring-offset-background placeholder:text-muted-foreground",
-      "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
-      "disabled:cursor-not-allowed disabled:opacity-50",
-      "[&>span]:line-clamp-1",
-      className
-    )}
+    className={cn(selectTriggerVariants({ size }), className)}
     {...props}
   >
     {children}
     <SelectPrimitive.Icon asChild>
-      <ChevronDown className="h-4 w-4 opacity-50" />
+      <ChevronDown className="h-4 w-4 opacity-50 shrink-0" />
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
 ));
@@ -152,14 +172,54 @@ const SelectSeparator = React.forwardRef<
 ));
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
 
+export interface SelectItemProps
+  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item> {
+  icon?: React.ReactNode;
+  description?: React.ReactNode;
+}
+
+const SelectItemEnhanced = React.forwardRef<
+  React.ElementRef<typeof SelectPrimitive.Item>,
+  SelectItemProps
+>(({ className, children, icon, description, ...props }, ref) => (
+  <SelectPrimitive.Item
+    ref={ref}
+    className={cn(
+      "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none",
+      "focus:bg-accent focus:text-accent-foreground",
+      "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      className
+    )}
+    {...props}
+  >
+    <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+      <SelectPrimitive.ItemIndicator>
+        <Check className="h-4 w-4" />
+      </SelectPrimitive.ItemIndicator>
+    </span>
+    <div className="flex items-center gap-2 flex-1 min-w-0">
+      {icon && <span className="shrink-0 text-muted-foreground">{icon}</span>}
+      <div className="flex-1 min-w-0">
+        <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+        {description && (
+          <p className="text-xs text-muted-foreground truncate">{description}</p>
+        )}
+      </div>
+    </div>
+  </SelectPrimitive.Item>
+));
+SelectItemEnhanced.displayName = "SelectItemEnhanced";
+
 export {
   Select,
   SelectGroup,
   SelectValue,
   SelectTrigger,
+  selectTriggerVariants,
   SelectContent,
   SelectLabel,
   SelectItem,
+  SelectItemEnhanced,
   SelectSeparator,
   SelectScrollUpButton,
   SelectScrollDownButton,

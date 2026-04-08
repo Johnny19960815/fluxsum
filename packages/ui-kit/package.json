@@ -22,11 +22,12 @@
     "build": "bun run build:lib",
     "build:lib": "tsup",
     "dev": "tsup --watch",
+    "docs:dev": "dumi dev",
+    "docs:build": "dumi build",
     "lint": "eslint src/",
     "type-check": "tsc --noEmit",
-    "clean": "rm -rf dist node_modules .turbo storybook-static",
-    "storybook": "storybook dev -p 6006",
-    "build:storybook": "storybook build"
+    "setup": "dumi setup",
+    "clean": "rm -rf dist node_modules .turbo .dumi/tmp"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.0",
@@ -72,26 +73,19 @@
   "devDependencies": {
     "@fluxsum/tailwind-config": "workspace:*",
     "@fluxsum/typescript-config": "workspace:*",
-    "@storybook/addon-essentials": "^8.2.0",
-    "@storybook/addon-interactions": "^8.2.0",
-    "@storybook/addon-links": "^8.2.0",
-    "@storybook/addon-themes": "^8.2.0",
-    "@storybook/blocks": "^8.2.0",
-    "@storybook/react": "^8.2.0",
-    "@storybook/react-vite": "^8.2.0",
-    "@storybook/test": "^8.2.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "autoprefixer": "^10.4.19",
+    "dumi": "^2.4.23",
+    "dumi-theme-antd": "^0.3.15",
     "postcss": "^8.4.38",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "storybook": "^8.2.0",
     "tailwindcss": "^4.0.0",
     "@tailwindcss/postcss": "^4.0.0",
     "tsup": "^8.0.2",
     "typescript": "^5.4.5",
-    "vite": "^5.3.0"
+    "antd": "^5.24.0"
   },
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",

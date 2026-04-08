@@ -169,84 +169,162 @@ DialogDescription.displayName = DialogPrimitive.Description.displayName;
  * Modal 简化组件属性
  */
 export interface ModalProps {
-  /**
-   * 是否打开
-   */
   open?: boolean;
-  /**
-   * 打开状态变化回调
-   */
   onOpenChange?: (open: boolean) => void;
-  /**
-   * 触发元素
-   */
+  onClose?: () => void;
   trigger?: React.ReactNode;
-  /**
-   * 标题
-   */
   title?: React.ReactNode;
-  /**
-   * 描述
-   */
   description?: React.ReactNode;
-  /**
-   * 底部内容
-   */
   footer?: React.ReactNode;
-  /**
-   * 内容
-   */
   children?: React.ReactNode;
-  /**
-   * 尺寸
-   */
   size?: VariantProps<typeof dialogContentVariants>["size"];
-  /**
-   * 是否显示关闭按钮
-   */
+  width?: number | string;
   showClose?: boolean;
+  fullscreen?: boolean;
+  centered?: boolean;
+  okText?: React.ReactNode;
+  cancelText?: React.ReactNode;
+  onOk?: () => void | Promise<void>;
+  onCancel?: () => void;
+  okLoading?: boolean;
+  okDisabled?: boolean;
+  noFooter?: boolean;
+  classNames?: {
+    overlay?: string;
+    content?: string;
+    header?: string;
+    body?: string;
+    footer?: string;
+  };
 }
 
-/**
- * Modal 简化组件
- *
- * 一个简化的模态框组件，封装了常用功能。
- *
- * @example
- * ```tsx
- * <Modal
- *   trigger={<Button>Open Modal</Button>}
- *   title="Modal Title"
- *   description="This is a description"
- *   footer={<Button>Confirm</Button>}
- * >
- *   Modal content goes here
- * </Modal>
- * ```
- */
 const Modal = ({
   open,
   onOpenChange,
+  onClose,
   trigger,
   title,
   description,
   footer,
   children,
   size,
+  width,
   showClose = true,
+  fullscreen = false,
+  centered = true,
+  okText = "OK",
+  cancelText = "Cancel",
+  onOk,
+  onCancel,
+  okLoading = false,
+  okDisabled = false,
+  noFooter = false,
+  classNames,
 }: ModalProps) => {
+  const [internalLoading, setInternalLoading] = React.useState(false);
+
+  const handleOpenChange = (isOpen: boolean) => {
+    onOpenChange?.(isOpen);
+    if (!isOpen) onClose?.();
+  };
+
+  const handleOk = async () => {
+    if (!onOk) return;
+    const result = onOk();
+    if (result instanceof Promise) {
+      setInternalLoading(true);
+      try {
+        await result;
+        handleOpenChange(false);
+      } finally {
+        setInternalLoading(false);
+      }
+    } else {
+      handleOpenChange(false);
+    }
+  };
+
+  const handleCancel = () => {
+    onCancel?.();
+    handleOpenChange(false);
+  };
+
+  const isLoading = okLoading || internalLoading;
+
+  const showBuiltinFooter = !noFooter && !footer && (onOk || onCancel);
+
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
-      <DialogContent size={size} showClose={showClose}>
+      <DialogContent
+        size={fullscreen ? "full" : size}
+        showClose={showClose}
+        className={classNames?.content}
+        style={width ? { maxWidth: width, width: "100%" } : undefined}
+      >
         {(title || description) && (
-          <DialogHeader>
+          <DialogHeader className={classNames?.header}>
             {title && <DialogTitle>{title}</DialogTitle>}
             {description && <DialogDescription>{description}</DialogDescription>}
           </DialogHeader>
         )}
-        {children}
-        {footer && <DialogFooter>{footer}</DialogFooter>}
+        <div className={cn("flex-1", classNames?.body)}>{children}</div>
+        {footer && (
+          <DialogFooter className={classNames?.footer}>{footer}</DialogFooter>
+        )}
+        {showBuiltinFooter && (
+          <DialogFooter className={classNames?.footer}>
+            {onCancel !== undefined && (
+              <button
+                type="button"
+                className={cn(
+                  "inline-flex items-center justify-center rounded-md border border-input bg-background",
+                  "px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground",
+                  "transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                )}
+                onClick={handleCancel}
+              >
+                {cancelText}
+              </button>
+            )}
+            {onOk !== undefined && (
+              <button
+                type="button"
+                disabled={okDisabled || isLoading}
+                className={cn(
+                  "inline-flex items-center justify-center rounded-md bg-primary",
+                  "px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90",
+                  "transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                  "disabled:pointer-events-none disabled:opacity-50"
+                )}
+                onClick={handleOk}
+              >
+                {isLoading && (
+                  <svg
+                    className="mr-2 h-4 w-4 animate-spin"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    />
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                    />
+                  </svg>
+                )}
+                {okText}
+              </button>
+            )}
+          </DialogFooter>
+        )}
       </DialogContent>
     </Dialog>
   );

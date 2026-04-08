@@ -8,80 +8,87 @@ import { cn } from "../../lib/utils";
 /**
  * Alert 变体样式定义
  */
+export type AlertType = "info" | "success" | "warning" | "error";
+
+const alertTypeMap: Record<AlertType, string> = {
+  info: "info",
+  success: "success",
+  warning: "warning",
+  error: "destructive",
+};
+
 const alertVariants = cva(
-  [
-    "relative w-full rounded-lg border p-4",
-    "[&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px]",
-    "[&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground",
-  ],
+  ["relative w-full rounded-lg border p-4 text-sm transition-all"],
   {
     variants: {
-      /** 警告变体 */
       variant: {
-        default: "bg-background text-foreground",
-        info: "border-info/50 bg-info/10 text-info [&>svg]:text-info",
-        success: "border-success/50 bg-success/10 text-success [&>svg]:text-success",
-        warning: "border-warning/50 bg-warning/10 text-warning [&>svg]:text-warning",
-        destructive: "border-destructive/50 bg-destructive/10 text-destructive [&>svg]:text-destructive",
+        default: "bg-background text-foreground border-border",
+        info: "border-info/50 bg-info/10 text-foreground [&_.alert-icon]:text-info",
+        success: "border-success/50 bg-success/10 text-foreground [&_.alert-icon]:text-success",
+        warning: "border-warning/50 bg-warning/10 text-foreground [&_.alert-icon]:text-warning",
+        destructive: "border-destructive/50 bg-destructive/10 text-foreground [&_.alert-icon]:text-destructive",
+      },
+      filled: {
+        true: "",
+        false: "",
+      },
+      glass: {
+        true: "backdrop-blur-xl bg-background/60 border-border/50",
+        false: "",
+      },
+      colorfulText: {
+        true: "",
+        false: "",
       },
     },
+    compoundVariants: [
+      { variant: "info", filled: true, class: "bg-info text-info-foreground border-info" },
+      { variant: "success", filled: true, class: "bg-success text-success-foreground border-success" },
+      { variant: "warning", filled: true, class: "bg-warning text-warning-foreground border-warning" },
+      { variant: "destructive", filled: true, class: "bg-destructive text-destructive-foreground border-destructive" },
+      { variant: "info", colorfulText: true, class: "text-info" },
+      { variant: "success", colorfulText: true, class: "text-success" },
+      { variant: "warning", colorfulText: true, class: "text-warning" },
+      { variant: "destructive", colorfulText: true, class: "text-destructive" },
+    ],
     defaultVariants: {
       variant: "default",
+      filled: false,
+      glass: false,
+      colorfulText: false,
     },
   }
 );
 
-/**
- * Alert 组件属性
- */
 export interface AlertProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof alertVariants> {
-  /**
-   * 自定义图标
-   */
+  type?: AlertType;
   icon?: React.ReactNode;
-  /**
-   * 是否显示默认图标
-   */
   showIcon?: boolean;
-  /**
-   * 是否可关闭
-   */
   closable?: boolean;
-  /**
-   * 关闭回调
-   */
   onClose?: () => void;
+  extra?: React.ReactNode;
+  message?: React.ReactNode;
+  description?: React.ReactNode;
 }
 
-/**
- * Alert 警告提示组件
- *
- * 用于展示重要的提示信息。
- *
- * @example
- * ```tsx
- * // 基础用法
- * <Alert>
- *   <AlertTitle>Heads up!</AlertTitle>
- *   <AlertDescription>You can add components to your app.</AlertDescription>
- * </Alert>
- *
- * // 不同变体
- * <Alert variant="success">Operation successful!</Alert>
- * <Alert variant="destructive">Something went wrong.</Alert>
- * ```
- */
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
   (
     {
       className,
       variant,
+      type,
+      filled,
+      glass,
+      colorfulText,
       icon,
       showIcon = true,
       closable = false,
       onClose,
+      extra,
+      message,
+      description,
       children,
       ...props
     },
@@ -89,12 +96,16 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
   ) => {
     const [visible, setVisible] = React.useState(true);
 
-    const defaultIcons = {
-      default: <Info className="h-4 w-4" />,
-      info: <Info className="h-4 w-4" />,
-      success: <CheckCircle2 className="h-4 w-4" />,
-      warning: <AlertCircle className="h-4 w-4" />,
-      destructive: <XCircle className="h-4 w-4" />,
+    const resolvedVariant = type
+      ? (alertTypeMap[type] as typeof variant)
+      : (variant ?? "default");
+
+    const defaultIcons: Record<string, React.ReactNode> = {
+      default: <Info className="h-4 w-4 alert-icon" />,
+      info: <Info className="h-4 w-4 alert-icon" />,
+      success: <CheckCircle2 className="h-4 w-4 alert-icon" />,
+      warning: <AlertCircle className="h-4 w-4 alert-icon" />,
+      destructive: <XCircle className="h-4 w-4 alert-icon" />,
     };
 
     const handleClose = () => {
@@ -104,25 +115,54 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
 
     if (!visible) return null;
 
+    const hasStructured = message !== undefined || description !== undefined;
+
     return (
       <div
         ref={ref}
         role="alert"
-        className={cn(alertVariants({ variant }), className)}
+        className={cn(
+          alertVariants({ variant: resolvedVariant, filled, glass, colorfulText }),
+          className
+        )}
         {...props}
       >
-        {showIcon && (icon || defaultIcons[variant || "default"])}
-        {children}
-        {closable && (
-          <button
-            type="button"
-            className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-            onClick={handleClose}
-            aria-label="Close"
-          >
-            <X className="h-4 w-4" />
-          </button>
-        )}
+        <div className="flex gap-3">
+          {showIcon && (
+            <span className="mt-0.5 shrink-0 alert-icon">
+              {icon ?? defaultIcons[resolvedVariant as string ?? "default"]}
+            </span>
+          )}
+          <div className="flex-1 min-w-0">
+            {hasStructured ? (
+              <>
+                {message && (
+                  <div className="font-medium leading-none mb-1">{message}</div>
+                )}
+                {description && (
+                  <div className="text-sm opacity-90 mt-1">{description}</div>
+                )}
+              </>
+            ) : (
+              children
+            )}
+          </div>
+          {(extra || closable) && (
+            <div className="flex items-start gap-1 shrink-0">
+              {extra}
+              {closable && (
+                <button
+                  type="button"
+                  className="rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                  onClick={handleClose}
+                  aria-label="Close"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              )}
+            </div>
+          )}
+        </div>
       </div>
     );
   }

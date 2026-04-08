@@ -162,4 +162,171 @@ const Progress = React.forwardRef<
 
 Progress.displayName = ProgressPrimitive.Root.displayName;
 
-export { Progress, progressTrackVariants, progressIndicatorVariants };
+// ─── ProgressCircle ───────────────────────────────────────────────────────────
+
+export interface ProgressCircleProps extends React.SVGAttributes<SVGSVGElement> {
+  value?: number;
+  size?: number;
+  strokeWidth?: number;
+  variant?: VariantProps<typeof progressIndicatorVariants>["variant"];
+  showLabel?: boolean;
+  label?: React.ReactNode;
+  indeterminate?: boolean;
+}
+
+const variantColorMap: Record<string, string> = {
+  default: "hsl(var(--primary))",
+  success: "hsl(var(--success, 142 71% 45%))",
+  warning: "hsl(var(--warning, 38 92% 50%))",
+  destructive: "hsl(var(--destructive))",
+  info: "hsl(var(--info, 199 89% 48%))",
+  rainbow: "url(#progress-circle-gradient)",
+};
+
+const ProgressCircle = React.forwardRef<SVGSVGElement, ProgressCircleProps>(
+  (
+    {
+      value = 0,
+      size = 64,
+      strokeWidth = 6,
+      variant = "default",
+      showLabel = true,
+      label,
+      indeterminate = false,
+      className,
+      ...props
+    },
+    ref
+  ) => {
+    const clampedValue = Math.min(100, Math.max(0, value));
+    const radius = (size - strokeWidth) / 2;
+    const circumference = 2 * Math.PI * radius;
+    const strokeDashoffset = circumference - (clampedValue / 100) * circumference;
+    const strokeColor = variantColorMap[variant ?? "default"] ?? variantColorMap.default;
+    const displayLabel = label ?? `${clampedValue}%`;
+
+    return (
+      <div
+        className={cn("relative inline-flex items-center justify-center", className)}
+        style={{ width: size, height: size }}
+      >
+        <svg
+          ref={ref}
+          width={size}
+          height={size}
+          viewBox={`0 0 ${size} ${size}`}
+          fill="none"
+          className={cn(indeterminate && "animate-spin")}
+          {...props}
+        >
+          {variant === "rainbow" && (
+            <defs>
+              <linearGradient id="progress-circle-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="hsl(270 76% 60%)" />
+                <stop offset="50%" stopColor="hsl(220 80% 60%)" />
+                <stop offset="100%" stopColor="hsl(190 80% 55%)" />
+              </linearGradient>
+            </defs>
+          )}
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={radius}
+            stroke="hsl(var(--secondary))"
+            strokeWidth={strokeWidth}
+          />
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={radius}
+            stroke={strokeColor}
+            strokeWidth={strokeWidth}
+            strokeLinecap="round"
+            strokeDasharray={circumference}
+            strokeDashoffset={indeterminate ? circumference * 0.75 : strokeDashoffset}
+            transform={`rotate(-90 ${size / 2} ${size / 2})`}
+            className="transition-all duration-500 ease-in-out"
+          />
+        </svg>
+        {showLabel && !indeterminate && (
+          <span
+            className="absolute text-center font-medium tabular-nums leading-none"
+            style={{ fontSize: Math.max(size * 0.2, 10) }}
+          >
+            {displayLabel}
+          </span>
+        )}
+      </div>
+    );
+  }
+);
+
+ProgressCircle.displayName = "ProgressCircle";
+
+// ─── ProgressSteps ────────────────────────────────────────────────────────────
+
+export interface ProgressStepsProps extends React.HTMLAttributes<HTMLDivElement> {
+  value?: number;
+  steps?: number;
+  variant?: VariantProps<typeof progressIndicatorVariants>["variant"];
+  size?: "sm" | "default" | "lg";
+  gap?: number;
+}
+
+const stepVariantColorMap: Record<string, string> = {
+  default: "bg-primary",
+  success: "bg-success",
+  warning: "bg-warning",
+  destructive: "bg-destructive",
+  info: "bg-info",
+  rainbow: "bg-gradient-to-r from-violet-500 via-blue-500 to-cyan-500",
+};
+
+const ProgressSteps = React.forwardRef<HTMLDivElement, ProgressStepsProps>(
+  (
+    {
+      value = 0,
+      steps = 5,
+      variant = "default",
+      size = "default",
+      gap = 4,
+      className,
+      ...props
+    },
+    ref
+  ) => {
+    const clampedValue = Math.min(100, Math.max(0, value));
+    const filledSteps = Math.round((clampedValue / 100) * steps);
+
+    const stepHeight = size === "sm" ? "h-1" : size === "lg" ? "h-3" : "h-2";
+    const activeColor = stepVariantColorMap[variant ?? "default"] ?? "bg-primary";
+
+    return (
+      <div
+        ref={ref}
+        className={cn("flex w-full", className)}
+        style={{ gap }}
+        role="progressbar"
+        aria-valuenow={clampedValue}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        {...props}
+      >
+        {Array.from({ length: steps }).map((_, i) => (
+          <div
+            key={i}
+            className={cn(
+              "flex-1 rounded-full transition-all duration-300",
+              stepHeight,
+              i < filledSteps ? activeColor : "bg-secondary"
+            )}
+          />
+        ))}
+      </div>
+    );
+  }
+);
+
+ProgressSteps.displayName = "ProgressSteps";
+
+export { Progress, ProgressCircle, ProgressSteps, progressTrackVariants, progressIndicatorVariants };

@@ -110,4 +110,77 @@ const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
 
 Badge.displayName = "Badge";
 
-export { Badge, badgeVariants };
+export interface BadgeWrapperProps extends React.HTMLAttributes<HTMLDivElement> {
+  count?: number | React.ReactNode;
+  dot?: boolean;
+  overflowCount?: number;
+  showZero?: boolean;
+  variant?: VariantProps<typeof badgeVariants>["variant"];
+  size?: VariantProps<typeof badgeVariants>["size"];
+  offset?: [number, number];
+  children: React.ReactNode;
+}
+
+const BadgeWrapper = React.forwardRef<HTMLDivElement, BadgeWrapperProps>(
+  (
+    {
+      className,
+      count,
+      dot = false,
+      overflowCount = 99,
+      showZero = false,
+      variant = "destructive",
+      size = "sm",
+      offset = [0, 0],
+      children,
+      ...props
+    },
+    ref
+  ) => {
+    const numericCount = typeof count === "number" ? count : undefined;
+    const displayCount =
+      numericCount !== undefined && numericCount > overflowCount
+        ? `${overflowCount}+`
+        : count;
+
+    const isHidden =
+      !dot &&
+      numericCount !== undefined &&
+      numericCount <= 0 &&
+      !showZero;
+
+    return (
+      <div
+        ref={ref}
+        className={cn("relative inline-flex", className)}
+        {...props}
+      >
+        {children}
+        {!isHidden && (
+          <span
+            className={cn(
+              "absolute pointer-events-none",
+              dot
+                ? cn(badgeVariants({ variant, dot: true }))
+                : cn(badgeVariants({ variant, size })),
+              "z-10",
+              dot
+                ? "-top-0.5 -right-0.5"
+                : "top-0 right-0 translate-x-1/2 -translate-y-1/2"
+            )}
+            style={{
+              marginTop: offset[1] ?? 0,
+              marginRight: -(offset[0] ?? 0),
+            }}
+          >
+            {!dot && displayCount}
+          </span>
+        )}
+      </div>
+    );
+  }
+);
+
+BadgeWrapper.displayName = "BadgeWrapper";
+
+export { Badge, BadgeWrapper, badgeVariants };

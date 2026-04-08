@@ -53,63 +53,79 @@ TooltipContent.displayName = TooltipPrimitive.Content.displayName;
 /**
  * Tooltip 简化组件属性
  */
-export interface TooltipProps {
-  /**
-   * 触发元素
-   */
-  children: React.ReactNode;
-  /**
-   * 提示内容
-   */
-  content: React.ReactNode;
-  /**
-   * 提示位置
-   */
-  side?: "top" | "right" | "bottom" | "left";
-  /**
-   * 对齐方式
-   */
-  align?: "start" | "center" | "end";
-  /**
-   * 延迟显示时间（毫秒）
-   */
-  delayDuration?: number;
-  /**
-   * 是否禁用
-   */
-  disabled?: boolean;
+export interface TooltipContentProps
+  extends React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content> {
+  showArrow?: boolean;
 }
 
-/**
- * Tooltip 简化组件
- *
- * 一个简化的 Tooltip 组件，封装了常用功能。
- *
- * @example
- * ```tsx
- * <Tooltip content="This is a tooltip">
- *   <Button>Hover me</Button>
- * </Tooltip>
- * ```
- */
+export interface TooltipProps {
+  children: React.ReactNode;
+  content?: React.ReactNode;
+  title?: React.ReactNode;
+  side?: "top" | "right" | "bottom" | "left";
+  align?: "start" | "center" | "end";
+  delayDuration?: number;
+  disabled?: boolean;
+  shortcut?: string | string[];
+  showArrow?: boolean;
+  maxWidth?: number | string;
+  hotkey?: string[];
+}
+
+const formatHotkey = (keys: string[]): string[] =>
+  keys.map((k) =>
+    k
+      .replace(/meta|cmd|command/i, "⌘")
+      .replace(/shift/i, "⇧")
+      .replace(/alt|option/i, "⌥")
+      .replace(/ctrl|control/i, "⌃")
+  );
+
 const Tooltip = ({
   children,
   content,
+  title,
   side = "top",
   align = "center",
   delayDuration = 200,
   disabled = false,
+  shortcut,
+  hotkey,
+  showArrow = false,
+  maxWidth = 240,
 }: TooltipProps) => {
-  if (disabled || !content) {
+  const resolvedContent = content ?? title;
+
+  if (disabled || !resolvedContent) {
     return <>{children}</>;
   }
+
+  const hotkeyKeys = hotkey
+    ? formatHotkey(hotkey)
+    : shortcut
+    ? formatHotkey(Array.isArray(shortcut) ? shortcut : shortcut.split("+"))
+    : null;
 
   return (
     <TooltipProvider delayDuration={delayDuration}>
       <TooltipRoot>
         <TooltipTrigger asChild>{children}</TooltipTrigger>
-        <TooltipContent side={side} align={align}>
-          {content}
+        <TooltipContent side={side} align={align} showArrow={showArrow} style={{ maxWidth }}>
+          <div className="flex items-center gap-2">
+            <span className="flex-1">{resolvedContent}</span>
+            {hotkeyKeys && (
+              <span className="flex items-center gap-0.5 shrink-0">
+                {hotkeyKeys.map((k, i) => (
+                  <kbd
+                    key={i}
+                    className="inline-flex items-center justify-center rounded border border-border/40 bg-white/10 px-1 py-0.5 text-[10px] font-medium leading-none"
+                  >
+                    {k}
+                  </kbd>
+                ))}
+              </span>
+            )}
+          </div>
         </TooltipContent>
       </TooltipRoot>
     </TooltipProvider>

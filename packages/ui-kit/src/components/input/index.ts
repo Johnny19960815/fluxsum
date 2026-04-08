@@ -1,1 +1,9 @@
-export { Input, inputVariants, type InputProps } from "./input";
+export {
+  Input,
+  TextArea,
+  InputPassword,
+  inputVariants,
+  type InputProps,
+  type TextAreaProps,
+  type InputPasswordProps,
+} from "./input";

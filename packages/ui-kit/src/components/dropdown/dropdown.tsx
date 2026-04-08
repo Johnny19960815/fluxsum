@@ -81,8 +81,9 @@ const DropdownMenuItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item> & {
     inset?: boolean;
+    danger?: boolean;
   }
->(({ className, inset, ...props }, ref) => (
+>(({ className, inset, danger, ...props }, ref) => (
   <DropdownMenuPrimitive.Item
     ref={ref}
     className={cn(
@@ -90,12 +91,56 @@ const DropdownMenuItem = React.forwardRef<
       "focus:bg-accent focus:text-accent-foreground",
       "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       inset && "pl-8",
+      danger && "text-destructive focus:bg-destructive/10 focus:text-destructive",
       className
     )}
     {...props}
   />
 ));
 DropdownMenuItem.displayName = DropdownMenuPrimitive.Item.displayName;
+
+export interface DropdownMenuItemEnhancedProps
+  extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item> {
+  inset?: boolean;
+  danger?: boolean;
+  icon?: React.ReactNode;
+  description?: React.ReactNode;
+  shortcut?: string;
+}
+
+const DropdownMenuItemEnhanced = React.forwardRef<
+  React.ElementRef<typeof DropdownMenuPrimitive.Item>,
+  DropdownMenuItemEnhancedProps
+>(({ className, inset, danger, icon, description, shortcut, children, ...props }, ref) => (
+  <DropdownMenuPrimitive.Item
+    ref={ref}
+    className={cn(
+      "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors gap-2",
+      "focus:bg-accent focus:text-accent-foreground",
+      "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      inset && "pl-8",
+      danger && "text-destructive focus:bg-destructive/10 focus:text-destructive",
+      className
+    )}
+    {...props}
+  >
+    {icon && (
+      <span className={cn("shrink-0 h-4 w-4 flex items-center justify-center", danger ? "text-destructive" : "text-muted-foreground")}>
+        {icon}
+      </span>
+    )}
+    <div className="flex-1 min-w-0">
+      <div className="truncate">{children}</div>
+      {description && (
+        <p className="text-xs text-muted-foreground truncate mt-0.5">{description}</p>
+      )}
+    </div>
+    {shortcut && (
+      <span className="ml-auto text-xs tracking-widest opacity-60 shrink-0">{shortcut}</span>
+    )}
+  </DropdownMenuPrimitive.Item>
+));
+DropdownMenuItemEnhanced.displayName = "DropdownMenuItemEnhanced";
 
 const DropdownMenuCheckboxItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.CheckboxItem>,
@@ -194,6 +239,7 @@ export {
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuItemEnhanced,
   DropdownMenuCheckboxItem,
   DropdownMenuRadioItem,
   DropdownMenuLabel,

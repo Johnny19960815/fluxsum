@@ -13,15 +13,18 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "outDir": "./dist",
-    "rootDir": "./src",
     "declaration": true,
     "declarationMap": true,
     "noEmit": false,
+    "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@@/*": ["./.dumi/tmp/*"],
+      "@fluxsum/ui-kit": ["./src"],
+      "@fluxsum/ui-kit/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "src-copy"]
+  "include": ["src/**/*", ".dumirc.ts", "src/components/**/*.md"],
+  "exclude": ["node_modules", "dist", "src-copy", "lobe-ui"]
 }

@@ -40,32 +40,16 @@ const avatarVariants = cva(
   }
 );
 
-/**
- * Avatar 组件属性
- */
 export interface AvatarProps
   extends React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>,
     VariantProps<typeof avatarVariants> {
-  /**
-   * 图片地址
-   */
   src?: string;
-  /**
-   * 图片描述
-   */
   alt?: string;
-  /**
-   * 后备文本（当图片加载失败时显示）
-   */
   fallback?: string;
-  /**
-   * 后备背景色
-   */
   fallbackColor?: string;
-  /**
-   * 在线状态
-   */
   status?: "online" | "offline" | "busy" | "away";
+  loading?: boolean;
+  animation?: "none" | "pulse" | "bounce" | "spin";
 }
 
 /**
@@ -85,6 +69,13 @@ export interface AvatarProps
  * <Avatar src="/avatar.jpg" status="online" />
  * ```
  */
+const animationMap = {
+  none: "",
+  pulse: "animate-pulse",
+  bounce: "animate-bounce",
+  spin: "animate-spin",
+};
+
 const Avatar = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Root>,
   AvatarProps
@@ -100,19 +91,47 @@ const Avatar = React.forwardRef<
       fallback,
       fallbackColor,
       status,
+      loading = false,
+      animation = "none",
       ...props
     },
     ref
   ) => {
-    const statusColors = {
+    const statusColors: Record<string, string> = {
       online: "bg-success",
       offline: "bg-muted-foreground",
       busy: "bg-destructive",
       away: "bg-warning",
     };
 
+    const statusSizeMap: Record<string, string> = {
+      xs: "h-1.5 w-1.5",
+      sm: "h-2 w-2",
+      default: "h-2.5 w-2.5",
+      lg: "h-3 w-3",
+      xl: "h-3.5 w-3.5",
+      "2xl": "h-4 w-4",
+    };
+
+    if (loading) {
+      return (
+        <div
+          className={cn(
+            avatarVariants({ shape, size }),
+            "animate-pulse bg-muted",
+            className
+          )}
+        />
+      );
+    }
+
     return (
-      <div className="relative inline-block">
+      <div
+        className={cn(
+          "relative inline-block",
+          animation !== "none" && animationMap[animation]
+        )}
+      >
         <AvatarPrimitive.Root
           ref={ref}
           className={cn(avatarVariants({ shape, size, bordered }), className)}
@@ -138,12 +157,7 @@ const Avatar = React.forwardRef<
             className={cn(
               "absolute bottom-0 right-0 block rounded-full ring-2 ring-background",
               statusColors[status],
-              size === "xs" && "h-1.5 w-1.5",
-              size === "sm" && "h-2 w-2",
-              size === "default" && "h-2.5 w-2.5",
-              size === "lg" && "h-3 w-3",
-              size === "xl" && "h-3.5 w-3.5",
-              size === "2xl" && "h-4 w-4"
+              statusSizeMap[size ?? "default"]
             )}
             aria-label={`Status: ${status}`}
           />

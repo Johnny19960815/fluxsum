@@ -3,7 +3,10 @@ import sharedConfig from "@fluxsum/tailwind-config";
 
 const config: Config = {
   ...sharedConfig,
-  content: ["./src/**/*.{ts,tsx}"],
+  content: [
+    "./src/**/*.{ts,tsx,md,mdx}",
+    "./.dumi/**/*.{ts,tsx}",
+  ],
 };
 
 export default config;
