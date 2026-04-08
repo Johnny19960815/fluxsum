@@ -14,7 +14,7 @@
   "dependencies": {
     "@fluxsum/api-sdk": "workspace:*",
     "@fluxsum/shared": "workspace:*",
-    "@fluxsum/ui-kit": "workspace:*",
+    "@fluxsum/ui": "workspace:*",
     "@fluxsum/wujie-config": "workspace:*",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

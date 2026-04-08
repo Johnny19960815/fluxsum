@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@fluxsum/shared": "workspace:*",
-    "@fluxsum/ui-kit": "workspace:*",
+    "@fluxsum/ui": "workspace:*",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^6.23.0"

@@ -1,0 +1,36 @@
+:where(.flxsum-flex) {
+  /* Define defaults on the element itself to avoid CSS variable inheritance leaking to nested Flex */
+  --flxsum-flex: 0 1 auto;
+  --flxsum-flex-direction: column;
+  --flxsum-flex-wrap: nowrap;
+  --flxsum-flex-justify: flex-start;
+  --flxsum-flex-align: stretch;
+  --flxsum-flex-width: auto;
+  --flxsum-flex-height: auto;
+  --flxsum-flex-padding: 0;
+  /* Keep padding-inline/block aligned with padding by default, and prevent inheriting from parent */
+  --flxsum-flex-padding-inline: var(--flxsum-flex-padding);
+  --flxsum-flex-padding-block: var(--flxsum-flex-padding);
+  --flxsum-flex-gap: 0;
+
+  display: flex;
+
+  flex: var(--flxsum-flex);
+  flex-direction: var(--flxsum-flex-direction);
+  flex-wrap: var(--flxsum-flex-wrap);
+  justify-content: var(--flxsum-flex-justify);
+  align-items: var(--flxsum-flex-align);
+
+  width: var(--flxsum-flex-width);
+  height: var(--flxsum-flex-height);
+
+  padding: var(--flxsum-flex-padding);
+  padding-inline: var(--flxsum-flex-padding-inline);
+  padding-block: var(--flxsum-flex-padding-block);
+
+  gap: var(--flxsum-flex-gap);
+}
+
+.flxsum-flex-hidden {
+  display: none;
+}

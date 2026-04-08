@@ -1,4 +1,4 @@
-import { Button } from "@fluxsum/ui-kit";
+import { Button } from "@fluxsum/ui";
 
 export function Users() {
   const users = [

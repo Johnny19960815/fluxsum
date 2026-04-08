@@ -1,4 +1,4 @@
-import { Button } from "@fluxsum/ui-kit";
+import { Button } from "@fluxsum/ui";
 import { Link } from "react-router-dom";
 
 export function Home() {

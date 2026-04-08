@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@fluxsum/ui-kit";
+import { Button } from "@fluxsum/ui";
 
 export function Login() {
   const navigate = useNavigate();
