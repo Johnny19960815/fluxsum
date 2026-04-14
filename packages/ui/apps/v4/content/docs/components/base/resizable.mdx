@@ -1,0 +1,133 @@
+---
+title: Resizable
+description: 支持键盘操作的无障碍可调整大小面板组和布局。
+base: base
+component: true
+links:
+  doc: https://github.com/bvaughn/react-resizable-panels
+  api: https://github.com/bvaughn/react-resizable-panels/tree/main/packages/react-resizable-panels
+---
+
+<ComponentPreview
+  styleName="new-york-v4"
+  name="resizable-demo"
+  previewClassName="h-80"
+/>
+
+## 关于
+
+`Resizable` 组件基于 [bvaughn](https://github.com/bvaughn) 开发的 [react-resizable-panels](https://github.com/bvaughn/react-resizable-panels) 构建。
+
+## 安装
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">命令</TabsTrigger>
+  <TabsTrigger value="manual">手动安装</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add resizable
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>安装以下依赖：</Step>
+
+```bash
+npm install react-resizable-panels
+```
+
+<Step>将以下代码复制到你的项目中。</Step>
+
+<ComponentSource name="resizable" title="components/ui/resizable.tsx" styleName="new-york-v4" />
+
+<Step>更新导入路径以匹配你的项目结构。</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## 用法
+
+```tsx showLineNumbers
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/resizable"
+```
+
+```tsx showLineNumbers
+<ResizablePanelGroup orientation="horizontal">
+  <ResizablePanel>One</ResizablePanel>
+  <ResizableHandle />
+  <ResizablePanel>Two</ResizablePanel>
+</ResizablePanelGroup>
+```
+
+## 组合结构
+
+使用以下组合结构来构建 `ResizablePanelGroup`：
+
+```text
+ResizablePanelGroup
+├── ResizablePanel
+├── ResizableHandle
+└── ResizablePanel
+```
+
+## 示例
+
+### 垂直方向
+
+使用 `orientation="vertical"` 进行垂直方向的大小调整。
+
+<ComponentPreview styleName="new-york-v4" name="resizable-vertical" />
+
+### 拖拽手柄
+
+在 `ResizableHandle` 上使用 `withHandle` 属性来显示可见的拖拽手柄。
+
+<ComponentPreview styleName="new-york-v4" name="resizable-handle" />
+
+## RTL 支持
+
+如需启用 RTL 支持，请参阅 [RTL 配置指南](/docs/rtl)。
+
+{/* <ComponentPreview styleName="new-york-v4" name="resizable-rtl" direction="rtl" /> */}
+
+## API 参考
+
+更多信息请参阅 [react-resizable-panels](https://github.com/bvaughn/react-resizable-panels/tree/main/packages/react-resizable-panels) 文档。
+
+## 更新日志
+
+### 2025-02-02 `react-resizable-panels` v4
+
+已更新至 `react-resizable-panels` v4。完整详情请参阅 [v4.0.0 发布说明](https://github.com/bvaughn/react-resizable-panels/releases/tag/4.0.0)。
+
+如果你直接使用 `react-resizable-panels` 原始组件，请注意以下变更：
+
+| v3                           | v4                      |
+| ---------------------------- | ----------------------- |
+| `PanelGroup`                 | `Group`                 |
+| `PanelResizeHandle`          | `Separator`             |
+| `direction` prop             | `orientation` prop      |
+| `defaultSize={50}`           | `defaultSize="50%"`     |
+| `onLayout`                   | `onLayoutChange`        |
+| `ImperativePanelHandle`      | `PanelImperativeHandle` |
+| `ref` prop on Panel          | `panelRef` prop         |
+| `data-panel-group-direction` | `aria-orientation`      |
+
+<Callout>
+  shadcn/ui 封装组件（`ResizablePanelGroup`、`ResizablePanel`、`ResizableHandle`）保持不变。
+</Callout>

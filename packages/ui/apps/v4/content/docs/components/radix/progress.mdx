@@ -1,0 +1,77 @@
+---
+title: Progress
+description: 显示任务完成进度的指示器，通常以进度条形式呈现。
+base: radix
+component: true
+links:
+  doc: https://www.radix-ui.com/docs/primitives/components/progress
+  api: https://www.radix-ui.com/docs/primitives/components/progress#api-reference
+---
+
+<ComponentPreview styleName="new-york-v4" name="progress-demo" />
+
+## 安装
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">命令</TabsTrigger>
+  <TabsTrigger value="manual">手动安装</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add progress
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>安装以下依赖：</Step>
+
+```bash
+npm install radix-ui
+```
+
+<Step>将以下代码复制到你的项目中。</Step>
+
+<ComponentSource name="progress" title="components/ui/progress.tsx" styleName="new-york-v4" />
+
+<Step>更新导入路径以匹配你的项目结构。</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## 用法
+
+```tsx showLineNumbers
+import { Progress } from "@/components/ui/progress"
+```
+
+```tsx showLineNumbers
+<Progress value={33} />
+```
+
+## 示例
+
+
+{/* ComponentPreview name="progress-label" removed - example not in registry */}
+
+
+{/* ComponentPreview name="progress-controlled" removed - example not in registry */}
+
+## RTL 支持
+
+如需启用 RTL 支持，请参阅 [RTL 配置指南](/docs/rtl)。
+
+{/* <ComponentPreview styleName="new-york-v4" name="progress-rtl" direction="rtl" /> */}
+
+## API 参考
+
+更多信息请参阅 [Radix UI Progress](https://www.radix-ui.com/docs/primitives/components/progress#api-reference) 文档。

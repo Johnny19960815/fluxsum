@@ -1,7 +1,7 @@
-import { defineConfig } from '@rsbuild/core';
-import { pluginReact } from '@rsbuild/plugin-react';
-import { pluginModuleFederation } from '@module-federation/rsbuild-plugin';
-import { sharedConfig, runtimePlugins } from '../../module-federation.config';
+import { defineConfig } from '@rsbuild/core'
+import { pluginReact } from '@rsbuild/plugin-react'
+import { pluginModuleFederation } from '@module-federation/rsbuild-plugin'
+import { sharedConfig, runtimePlugins } from '../../module-federation.config'
 
 export default defineConfig({
   plugins: [
@@ -16,10 +16,17 @@ export default defineConfig({
       runtimePlugins,
     }),
   ],
+  tools: {
+    postcss: {
+      postcssOptions: {
+        plugins: ['@tailwindcss/postcss'],
+      },
+    },
+  },
   server: {
     port: 3000,
   },
   output: {
     assetPrefix: '/',
   },
-});
+})

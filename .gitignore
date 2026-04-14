@@ -34,3 +34,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# packages
+packages/ui/node_modules
+packages/ui/.next
+packages/ui/dist
+packages/ui/build
+packages/ui/out
+packages/ui/.turbo
+packages/ui/.contentlayer
+packages/ui/.idea
+packages/ui/.fleet
+packages/ui/.vscode

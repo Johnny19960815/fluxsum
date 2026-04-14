@@ -1,0 +1,141 @@
+---
+title: Alert
+description: 用于显示需要用户注意的提示信息。
+base: base
+component: true
+---
+
+<ComponentPreview
+  styleName="new-york-v4"
+  name="alert-demo"
+  previewClassName="h-auto sm:h-72 p-6"
+/>
+
+## 安装
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">命令</TabsTrigger>
+  <TabsTrigger value="manual">手动安装</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add alert
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>将以下代码复制到你的项目中。</Step>
+
+<ComponentSource name="alert" title="components/ui/alert.tsx" />
+
+<Step>更新导入路径以匹配你的项目结构。</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## 用法
+
+```tsx showLineNumbers
+import {
+  Alert,
+  AlertAction,
+  AlertDescription,
+  AlertTitle,
+} from "@/components/ui/alert"
+```
+
+```tsx showLineNumbers
+<Alert>
+  <InfoIcon />
+  <AlertTitle>Heads up!</AlertTitle>
+  <AlertDescription>
+    You can add components and dependencies to your app using the cli.
+  </AlertDescription>
+  <AlertAction>
+    <Button variant="outline">Enable</Button>
+  </AlertAction>
+</Alert>
+```
+
+## 组合结构
+
+使用以下组合结构来构建 `Alert`：
+
+```text
+Alert
+├── Icon
+├── AlertTitle
+├── AlertDescription
+└── AlertAction
+```
+
+## 示例
+
+
+{/* ComponentPreview name="alert-basic" removed - example not in registry */}
+
+### 危险样式
+
+使用 `variant="destructive"` 创建危险提示。
+
+<ComponentPreview
+  styleName="new-york-v4"
+  name="alert-destructive"
+  previewClassName="h-auto sm:h-72 p-6"
+/>
+
+
+{/* ComponentPreview name="alert-action" removed - example not in registry */}
+
+
+{/* ComponentPreview name="alert-colors" removed - example not in registry */}
+
+## RTL 支持
+
+如需启用 RTL 支持，请参阅 [RTL 配置指南](/docs/rtl)。
+
+{/* <ComponentPreview styleName="new-york-v4" name="alert-rtl" direction="rtl" previewClassName="h-auto sm:h-72 p-6" /> */}
+
+## API 参考
+
+### Alert
+
+`Alert` 组件用于显示需要用户注意的提示信息。
+
+| Prop      | Type                         | Default     |
+| --------- | ---------------------------- | ----------- |
+| `variant` | `"default" \| "destructive"` | `"default"` |
+
+### AlertTitle
+
+`AlertTitle` 组件用于显示提示的标题。
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` | -       |
+
+### AlertDescription
+
+`AlertDescription` 组件用于显示提示的描述或内容。
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` | -       |
+
+### AlertAction
+
+`AlertAction` 组件用于显示一个操作元素（如按钮），绝对定位在提示的右上角。
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` | -       |

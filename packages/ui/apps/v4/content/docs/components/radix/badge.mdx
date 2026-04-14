@@ -1,0 +1,84 @@
+---
+title: Badge
+description: 显示一个徽章或看起来像徽章的组件。
+base: radix
+component: true
+---
+
+<ComponentPreview styleName="new-york-v4" name="badge-demo" />
+
+## 安装
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">命令</TabsTrigger>
+  <TabsTrigger value="manual">手动安装</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add badge
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>将以下代码复制到你的项目中。</Step>
+
+<ComponentSource name="badge" title="components/ui/badge.tsx" />
+
+<Step>更新导入路径以匹配你的项目结构。</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## 用法
+
+```tsx
+import { Badge } from "@/components/ui/badge"
+```
+
+```tsx
+<Badge variant="default | outline | secondary | destructive">Badge</Badge>
+```
+
+## 示例
+
+
+{/* ComponentPreview name="badge-variants" removed - example not in registry */}
+
+
+{/* ComponentPreview name="badge-icon" removed - example not in registry */}
+
+
+{/* ComponentPreview name="badge-spinner" removed - example not in registry */}
+
+
+{/* ComponentPreview name="badge-link" removed - example not in registry */}
+
+
+{/* ComponentPreview name="badge-colors" removed - example not in registry */}
+
+## RTL 支持
+
+如需启用 RTL 支持，请参阅 [RTL 配置指南](/docs/rtl)。
+
+{/* <ComponentPreview styleName="new-york-v4" name="badge-rtl" direction="rtl" /> */}
+
+## API 参考
+
+### Badge
+
+`Badge` 组件显示一个徽章或看起来像徽章的组件。
+
+| Prop        | Type                                                                          | Default     |
+| ----------- | ----------------------------------------------------------------------------- | ----------- |
+| `variant`   | `"default" \| "secondary" \| "destructive" \| "outline" \| "ghost" \| "link"` | `"default"` |
+| `className` | `string`                                                                      | -           |

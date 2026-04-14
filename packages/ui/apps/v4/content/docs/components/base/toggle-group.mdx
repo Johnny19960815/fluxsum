@@ -1,0 +1,110 @@
+---
+title: Toggle Group
+description: 一组可以切换开关状态的双态按钮。
+base: base
+component: true
+links:
+  doc: https://base-ui.com/react/components/toggle-group
+  api: https://base-ui.com/react/components/toggle-group#api-reference
+---
+
+<ComponentPreview styleName="new-york-v4" name="toggle-group-demo" />
+
+## 安装
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">命令</TabsTrigger>
+  <TabsTrigger value="manual">手动安装</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add toggle-group
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>安装以下依赖：</Step>
+
+```bash
+npm install @base-ui/react
+```
+
+<Step>将以下代码复制到你的项目中。</Step>
+
+<ComponentSource name="toggle-group" title="components/ui/toggle-group.tsx" styleName="new-york-v4" />
+
+<Step>更新导入路径以匹配你的项目结构。</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## 用法
+
+```tsx
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
+```
+
+```tsx
+<ToggleGroup type="single">
+  <ToggleGroupItem value="a">A</ToggleGroupItem>
+  <ToggleGroupItem value="b">B</ToggleGroupItem>
+  <ToggleGroupItem value="c">C</ToggleGroupItem>
+</ToggleGroup>
+```
+
+## 组合结构
+
+使用以下组合结构来构建 `ToggleGroup`：
+
+```text
+ToggleGroup
+├── ToggleGroupItem
+└── ToggleGroupItem
+```
+
+## 示例
+
+### 轮廓样式
+
+使用 `variant="outline"` 来应用轮廓样式。
+
+<ComponentPreview styleName="new-york-v4" name="toggle-group-outline" />
+
+
+{/* ComponentPreview name="toggle-group-sizes" removed - example not in registry */}
+
+### 间距
+
+使用 `spacing` 在切换组项目之间添加间距。
+
+<ComponentPreview styleName="new-york-v4" name="toggle-group-spacing" />
+
+
+{/* ComponentPreview name="toggle-group-vertical" removed - example not in registry */}
+
+### 禁用状态
+
+<ComponentPreview styleName="new-york-v4" name="toggle-group-disabled" />
+
+
+{/* ComponentPreview name="toggle-group-font-weight-selector" removed - example not in registry */}
+
+## RTL 支持
+
+如需启用 RTL 支持，请参阅 [RTL 配置指南](/docs/rtl)。
+
+{/* <ComponentPreview styleName="new-york-v4" name="toggle-group-rtl" direction="rtl" /> */}
+
+## API 参考
+
+更多信息请参阅 [Base UI Toggle Group](https://base-ui.com/react/components/toggle-group#api-reference) 文档。

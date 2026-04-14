@@ -1,0 +1,87 @@
+---
+title: Toggle
+description: 一个可以处于开启或关闭状态的双态按钮。
+base: radix
+component: true
+links:
+  doc: https://www.radix-ui.com/docs/primitives/components/toggle
+  api: https://www.radix-ui.com/docs/primitives/components/toggle#api-reference
+---
+
+<ComponentPreview styleName="new-york-v4" name="toggle-demo" />
+
+## 安装
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">命令</TabsTrigger>
+  <TabsTrigger value="manual">手动安装</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add toggle
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>安装以下依赖：</Step>
+
+```bash
+npm install radix-ui
+```
+
+<Step>将以下代码复制到你的项目中。</Step>
+
+<ComponentSource name="toggle" title="components/ui/toggle.tsx" styleName="new-york-v4" />
+
+<Step>更新导入路径以匹配你的项目结构。</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## 用法
+
+```tsx
+import { Toggle } from "@/components/ui/toggle"
+```
+
+```tsx
+<Toggle>Toggle</Toggle>
+```
+
+## 示例
+
+### 轮廓样式
+
+使用 `variant="outline"` 来应用轮廓样式。
+
+<ComponentPreview styleName="new-york-v4" name="toggle-outline" />
+
+
+{/* ComponentPreview name="toggle-text" removed - example not in registry */}
+
+
+{/* ComponentPreview name="toggle-sizes" removed - example not in registry */}
+
+### 禁用状态
+
+<ComponentPreview styleName="new-york-v4" name="toggle-disabled" />
+
+## RTL 支持
+
+如需启用 RTL 支持，请参阅 [RTL 配置指南](/docs/rtl)。
+
+{/* <ComponentPreview styleName="new-york-v4" name="toggle-rtl" direction="rtl" /> */}
+
+## API 参考
+
+更多信息请参阅 [Radix Toggle](https://www.radix-ui.com/docs/primitives/components/toggle#api-reference) 文档。

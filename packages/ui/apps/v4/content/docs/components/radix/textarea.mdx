@@ -1,0 +1,81 @@
+---
+title: Textarea
+description: 显示一个表单文本域或外观类似文本域的组件。
+base: radix
+component: true
+---
+
+<ComponentPreview
+  styleName="new-york-v4"
+  name="textarea-demo"
+  previewClassName="*:max-w-xs"
+/>
+
+## 安装
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">命令</TabsTrigger>
+  <TabsTrigger value="manual">手动安装</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add textarea
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>将以下代码复制到你的项目中。</Step>
+
+<ComponentSource name="textarea" title="components/ui/textarea.tsx" styleName="new-york-v4" />
+
+<Step>更新导入路径以匹配你的项目结构。</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## 用法
+
+```tsx
+import { Textarea } from "@/components/ui/textarea"
+```
+
+```tsx
+<Textarea />
+```
+
+## 示例
+
+
+{/* ComponentPreview name="textarea-field" removed - example not in registry */}
+
+### 禁用状态
+
+使用 `disabled` 属性来禁用文本域。要设置禁用状态的样式，请在 `Field` 组件上添加 `data-disabled` 属性。
+
+<ComponentPreview
+  styleName="new-york-v4"
+  name="textarea-disabled"
+  previewClassName="*:max-w-xs"
+/>
+
+
+{/* ComponentPreview name="textarea-invalid" removed - example not in registry */}
+
+
+{/* ComponentPreview name="textarea-button" removed - example not in registry */}
+
+## RTL 支持
+
+如需启用 RTL 支持，请参阅 [RTL 配置指南](/docs/rtl)。
+
+{/* <ComponentPreview styleName="new-york-v4" name="textarea-rtl" direction="rtl" /> */}

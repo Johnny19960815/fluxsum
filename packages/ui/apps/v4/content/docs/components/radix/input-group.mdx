@@ -1,0 +1,281 @@
+---
+title: Input Group
+description: 为输入框添加附加元素、按钮和辅助内容。
+base: radix
+component: true
+---
+
+import { IconInfoCircle } from "@tabler/icons-react"
+
+<ComponentPreview
+  styleName="new-york-v4"
+  name="input-group-demo"
+  previewClassName="h-[26rem]"
+/>
+
+## 安装
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">命令</TabsTrigger>
+  <TabsTrigger value="manual">手动安装</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add input-group
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>将以下代码复制到你的项目中。</Step>
+
+<ComponentSource name="input-group" title="components/ui/input-group.tsx" styleName="new-york-v4" />
+
+<Step>更新导入路径以匹配你的项目结构。</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## 用法
+
+```tsx showLineNumbers
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+  InputGroupTextarea,
+} from "@/components/ui/input-group"
+```
+
+```tsx showLineNumbers
+<InputGroup>
+  <InputGroupInput placeholder="Search..." />
+  <InputGroupAddon>
+    <SearchIcon />
+  </InputGroupAddon>
+</InputGroup>
+```
+
+## 组合结构
+
+使用以下组合结构来构建 `InputGroup`：
+
+```text
+InputGroup
+├── InputGroupInput or InputGroupTextarea
+├── InputGroupAddon
+├── InputGroupButton
+└── InputGroupText
+```
+
+## 对齐
+
+使用 `InputGroupAddon` 的 `align` 属性来设置附加元素相对于输入框的位置。
+
+<Callout>
+  为了正确管理焦点，`InputGroupAddon` 在 DOM 中应始终放置在
+  `InputGroupInput` 或 `InputGroupTextarea` 之后。使用 `align` 属性来
+  设置附加元素的视觉位置。
+</Callout>
+
+
+{/* ComponentPreview name="input-group-inline-start" removed - example not in registry */}
+
+
+{/* ComponentPreview name="input-group-inline-end" removed - example not in registry */}
+
+
+{/* ComponentPreview name="input-group-block-start" removed - example not in registry */}
+
+
+{/* ComponentPreview name="input-group-block-end" removed - example not in registry */}
+
+## 示例
+
+### 图标
+
+<ComponentPreview
+  styleName="new-york-v4"
+  name="input-group-icon"
+  previewClassName="h-80"
+/>
+
+### 文本
+
+<ComponentPreview
+  styleName="new-york-v4"
+  name="input-group-text"
+  previewClassName="h-80"
+/>
+
+### 按钮
+
+<ComponentPreview
+  styleName="new-york-v4"
+  name="input-group-button"
+  previewClassName="h-72"
+/>
+
+
+{/* ComponentPreview name="input-group-kbd" removed - example not in registry */}
+
+### 下拉菜单
+
+<ComponentPreview
+  styleName="new-york-v4"
+  name="input-group-dropdown"
+  previewClassName="h-56"
+/>
+
+### 加载指示器
+
+<ComponentPreview
+  styleName="new-york-v4"
+  name="input-group-spinner"
+  previewClassName="h-80"
+/>
+
+### 文本域
+
+<ComponentPreview
+  styleName="new-york-v4"
+  name="input-group-textarea"
+  previewClassName="h-96"
+/>
+
+### 自定义输入
+
+将 `data-slot="input-group-control"` 属性添加到你的自定义输入组件，以实现自动焦点状态处理。
+
+以下是使用第三方库的自定义可调整大小文本域的示例。
+
+<ComponentPreview
+  styleName="new-york-v4"
+  name="input-group-custom"
+  previewClassName="h-56"
+/>
+
+## RTL 支持
+
+如需启用 RTL 支持，请参阅 [RTL 配置指南](/docs/rtl)。
+
+{/* <ComponentPreview styleName="new-york-v4" name="input-group-rtl" direction="rtl" previewClassName="h-[30rem]" /> */}
+
+## API 参考
+
+### InputGroup
+
+包裹输入框和附加元素的主组件。
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` |         |
+
+```tsx
+<InputGroup>
+  <InputGroupInput />
+  <InputGroupAddon />
+</InputGroup>
+```
+
+### InputGroupAddon
+
+在输入框旁边显示图标、文本、按钮或其他内容。
+
+<Callout icon={<IconInfoCircle />} title="焦点导航">
+  为了正确的焦点导航，`InputGroupAddon` 组件应放置在输入框之后。设置 `align` 属性来定位附加元素。
+</Callout>
+
+| Prop        | Type                                                             | Default          |
+| ----------- | ---------------------------------------------------------------- | ---------------- |
+| `align`     | `"inline-start" \| "inline-end" \| "block-start" \| "block-end"` | `"inline-start"` |
+| `className` | `string`                                                         |                  |
+
+```tsx
+<InputGroupAddon align="inline-end">
+  <SearchIcon />
+</InputGroupAddon>
+```
+
+**对于 `<InputGroupInput />`，使用 `inline-start` 或 `inline-end` 对齐方式。对于 `<InputGroupTextarea />`，使用 `block-start` 或 `block-end` 对齐方式。**
+
+`InputGroupAddon` 组件可以包含多个 `InputGroupButton` 组件和图标。
+
+```tsx
+<InputGroupAddon>
+  <InputGroupButton>Button</InputGroupButton>
+  <InputGroupButton>Button</InputGroupButton>
+</InputGroupAddon>
+```
+
+### InputGroupButton
+
+在输入组中显示按钮。
+
+| Prop        | Type                                                                          | Default   |
+| ----------- | ----------------------------------------------------------------------------- | --------- |
+| `size`      | `"xs" \| "icon-xs" \| "sm" \| "icon-sm"`                                      | `"xs"`    |
+| `variant`   | `"default" \| "destructive" \| "outline" \| "secondary" \| "ghost" \| "link"` | `"ghost"` |
+| `className` | `string`                                                                      |           |
+
+```tsx
+<InputGroupButton>Button</InputGroupButton>
+<InputGroupButton size="icon-xs" aria-label="Copy">
+  <CopyIcon />
+</InputGroupButton>
+```
+
+### InputGroupInput
+
+构建输入组时替代 `<Input />` 的组件。该组件预设了输入组样式，并使用统一的 `data-slot="input-group-control"` 进行焦点状态处理。
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` |         |
+
+所有其他属性会透传给底层的 `<Input />` 组件。
+
+```tsx
+<InputGroup>
+  <InputGroupInput placeholder="Enter text..." />
+  <InputGroupAddon>
+    <SearchIcon />
+  </InputGroupAddon>
+</InputGroup>
+```
+
+### InputGroupTextarea
+
+构建输入组时替代 `<Textarea />` 的组件。该组件预设了文本域组样式，并使用统一的 `data-slot="input-group-control"` 进行焦点状态处理。
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` |         |
+
+所有其他属性会透传给底层的 `<Textarea />` 组件。
+
+```tsx
+<InputGroup>
+  <InputGroupTextarea placeholder="Enter message..." />
+  <InputGroupAddon align="block-end">
+    <InputGroupButton>Send</InputGroupButton>
+  </InputGroupAddon>
+</InputGroup>
+```
+
+## 更新日志
+
+### 2025-10-06 `InputGroup`
+
+为 `InputGroup` 组件添加 `min-w-0` 类。查看 [diff](https://github.com/shadcn-ui/ui/pull/8341/files#diff-0e2ee95d0050ca4c5d82339df86c54e14a6739dc4638fdda0eec8f73aebc2da9)。

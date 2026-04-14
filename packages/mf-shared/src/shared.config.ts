@@ -1,4 +1,4 @@
-import type { SharedConfig } from '@module-federation/enhanced';
+import type { SharedConfig } from '@module-federation/enhanced'
 
 export const sharedConfig: Record<string, SharedConfig> = {
   react: {
@@ -8,13 +8,6 @@ export const sharedConfig: Record<string, SharedConfig> = {
   'react-dom': {
     singleton: true,
     requiredVersion: '^18.3.0',
-  },
-  antd: {
-    singleton: true,
-    requiredVersion: '^5.22.0',
-  },
-  '@ant-design/icons': {
-    singleton: true,
   },
   dayjs: {
     singleton: true,
@@ -27,9 +20,9 @@ export const sharedConfig: Record<string, SharedConfig> = {
     singleton: true,
     requiredVersion: '^5.60.0',
   },
-};
+}
 
 export const runtimePlugins = [
   '@fluxsum/mf-shared/plugins/auth-plugin',
   '@fluxsum/mf-shared/plugins/error-plugin',
-];
+]

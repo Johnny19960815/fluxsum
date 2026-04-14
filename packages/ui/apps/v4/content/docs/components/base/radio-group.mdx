@@ -1,0 +1,106 @@
+---
+title: Radio Group
+description: 一组可选中的按钮（即单选按钮），同一时间只能选中其中一个。
+base: base
+component: true
+links:
+  doc: https://base-ui.com/react/components/radio-group
+  api: https://base-ui.com/react/components/radio-group#api-reference
+---
+
+<ComponentPreview styleName="new-york-v4" name="radio-group-demo" />
+
+## 安装
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">命令</TabsTrigger>
+  <TabsTrigger value="manual">手动安装</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add radio-group
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>安装以下依赖：</Step>
+
+```bash
+npm install @base-ui/react
+```
+
+<Step>将以下代码复制到你的项目中。</Step>
+
+<ComponentSource name="radio-group" title="components/ui/radio-group.tsx" styleName="new-york-v4" />
+
+<Step>更新导入路径以匹配你的项目结构。</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## 用法
+
+```tsx showLineNumbers
+import { Label } from "@/components/ui/label"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+```
+
+```tsx showLineNumbers
+<RadioGroup defaultValue="option-one">
+  <div className="flex items-center gap-3">
+    <RadioGroupItem value="option-one" id="option-one" />
+    <Label htmlFor="option-one">Option One</Label>
+  </div>
+  <div className="flex items-center gap-3">
+    <RadioGroupItem value="option-two" id="option-two" />
+    <Label htmlFor="option-two">Option Two</Label>
+  </div>
+</RadioGroup>
+```
+
+## 组合结构
+
+使用以下组合结构来构建 `RadioGroup`：
+
+```text
+RadioGroup
+├── RadioGroupItem
+└── RadioGroupItem
+```
+
+## 示例
+
+
+{/* ComponentPreview name="radio-group-description" removed - example not in registry */}
+
+
+{/* ComponentPreview name="radio-group-choice-card" removed - example not in registry */}
+
+
+{/* ComponentPreview name="radio-group-fieldset" removed - example not in registry */}
+
+
+{/* ComponentPreview name="radio-group-disabled" removed - example not in registry */}
+
+
+{/* ComponentPreview name="radio-group-invalid" removed - example not in registry */}
+
+## RTL 支持
+
+如需启用 RTL 支持，请参阅 [RTL 配置指南](/docs/rtl)。
+
+{/* <ComponentPreview styleName="new-york-v4" name="radio-group-rtl" direction="rtl" /> */}
+
+## API 参考
+
+更多信息请参阅 [Base UI Radio Group](https://base-ui.com/react/components/radio-group#api-reference) 文档。

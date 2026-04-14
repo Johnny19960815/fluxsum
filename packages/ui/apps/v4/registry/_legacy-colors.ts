@@ -1,0 +1,1 @@
+export const colors: { name: string; colors: { name: string; id: string; scale: number; className: string; hex: string; rgb: string; hsl: string; foreground: string; oklch: string; var: string }[] }[] = []

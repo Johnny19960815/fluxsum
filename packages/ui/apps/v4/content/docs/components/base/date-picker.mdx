@@ -1,0 +1,96 @@
+---
+title: Date Picker
+description: 带有范围选择和预设的日期选择器组件。
+base: base
+component: true
+---
+
+<ComponentPreview styleName="new-york-v4" name="date-picker-demo" />
+
+## 安装
+
+Date Picker 是使用 `<Popover />` 和 `<Calendar />` 组件组合构建的。
+
+请参阅 [Popover](/docs/components/base/popover#installation) 和 [Calendar](/docs/components/base/calendar#installation) 组件的安装说明。
+
+## 用法
+
+```tsx showLineNumbers title="components/example-date-picker.tsx"
+"use client"
+
+import * as React from "react"
+import { format } from "date-fns"
+import { Calendar as CalendarIcon } from "lucide-react"
+
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+
+export function DatePickerDemo() {
+  const [date, setDate] = React.useState<Date>()
+
+  return (
+    <Popover>
+      <PopoverTrigger
+        render={
+          <Button
+            variant="outline"
+            data-empty={!date}
+            className="justify-start text-left font-normal data-[empty=true]:text-muted-foreground"
+          />
+        }
+      >
+        <CalendarIcon />
+        {date ? format(date, "PPP") : <span>Pick a date</span>}
+      </PopoverTrigger>
+      <PopoverContent className="w-auto p-0">
+        <Calendar mode="single" selected={date} onSelect={setDate} />
+      </PopoverContent>
+    </Popover>
+  )
+}
+```
+
+更多信息请参阅 [React DayPicker](https://react-day-picker.js.org) 文档。
+
+## 组合结构
+
+日期选择器由 `Popover` 和 `Calendar` 构建（没有 `DatePicker` 根组件）：
+
+```text
+Popover
+├── PopoverTrigger
+└── PopoverContent
+    └── Calendar
+```
+
+## 示例
+
+
+{/* ComponentPreview name="date-picker-basic" removed - example not in registry */}
+
+
+{/* ComponentPreview name="date-picker-range" removed - example not in registry */}
+
+
+{/* ComponentPreview name="date-picker-dob" removed - example not in registry */}
+
+
+{/* ComponentPreview name="date-picker-input" removed - example not in registry */}
+
+
+{/* ComponentPreview name="date-picker-time" removed - example not in registry */}
+
+
+{/* ComponentPreview name="date-picker-natural-language" removed - example not in registry */}
+
+## RTL 支持
+
+如需启用 RTL 支持，请参阅 [RTL 配置指南](/docs/rtl)。
+
+{/* <ComponentPreview styleName="new-york-v4" name="date-picker-rtl" direction="rtl" /> */}

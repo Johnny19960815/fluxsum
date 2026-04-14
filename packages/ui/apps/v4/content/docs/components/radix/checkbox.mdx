@@ -1,0 +1,113 @@
+---
+title: Checkbox
+description: 一个允许用户在选中和未选中之间切换的控件。
+base: radix
+component: true
+links:
+  doc: https://www.radix-ui.com/docs/primitives/components/checkbox
+  api: https://www.radix-ui.com/docs/primitives/components/checkbox#api-reference
+---
+
+<ComponentPreview
+  styleName="new-york-v4"
+  name="checkbox-demo"
+  previewClassName="h-80"
+/>
+
+## 安装
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">命令</TabsTrigger>
+  <TabsTrigger value="manual">手动安装</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add checkbox
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>安装以下依赖：</Step>
+
+```bash
+npm install radix-ui
+```
+
+<Step>将以下代码复制到你的项目中。</Step>
+
+<ComponentSource name="checkbox" title="components/ui/checkbox.tsx" styleName="new-york-v4" />
+
+<Step>更新导入路径以匹配你的项目结构。</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## 用法
+
+```tsx
+import { Checkbox } from "@/components/ui/checkbox"
+```
+
+```tsx
+<Checkbox />
+```
+
+## 选中状态
+
+对于非受控复选框使用 `defaultChecked`，或使用 `checked` 和 `onCheckedChange` 来控制状态。
+
+```tsx showLineNumbers
+import * as React from "react"
+
+export function Example() {
+  const [checked, setChecked] = React.useState(false)
+
+  return <Checkbox checked={checked} onCheckedChange={setChecked} />
+}
+```
+
+## 无效状态
+
+在复选框上设置 `aria-invalid`，在字段包裹器上设置 `data-invalid` 来显示无效样式。
+
+{/* <ComponentPreview styleName="new-york-v4" name="checkbox-invalid" /> */}
+
+## 示例
+
+
+{/* ComponentPreview name="checkbox-basic" removed - example not in registry */}
+
+
+{/* ComponentPreview name="checkbox-description" removed - example not in registry */}
+
+### 禁用
+
+使用 `disabled` 属性阻止交互，并在 `<Field>` 组件上添加 `data-disabled` 属性以显示禁用样式。
+
+<ComponentPreview styleName="new-york-v4" name="checkbox-disabled" />
+
+
+{/* ComponentPreview name="checkbox-group" removed - example not in registry */}
+
+
+{/* ComponentPreview name="checkbox-table" removed - example not in registry */}
+
+## RTL 支持
+
+如需启用 RTL 支持，请参阅 [RTL 配置指南](/docs/rtl)。
+
+{/* <ComponentPreview styleName="new-york-v4" name="checkbox-rtl" direction="rtl" previewClassName="h-80" /> */}
+
+## API 参考
+
+更多信息请参阅 [Radix UI](https://www.radix-ui.com/docs/primitives/components/checkbox#api-reference) 文档。

@@ -1,0 +1,92 @@
+---
+title: Scroll Area
+description: 增强原生滚动功能，支持自定义、跨浏览器样式。
+base: base
+component: true
+links:
+  doc: https://base-ui.com/react/components/scroll-area
+  api: https://base-ui.com/react/components/scroll-area#api-reference
+---
+
+<ComponentPreview
+  styleName="new-york-v4"
+  name="scroll-area-demo"
+  previewClassName="h-96"
+/>
+
+## 安装
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">命令</TabsTrigger>
+  <TabsTrigger value="manual">手动安装</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add scroll-area
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>安装以下依赖：</Step>
+
+```bash
+npm install @base-ui/react
+```
+
+<Step>将以下代码复制到你的项目中。</Step>
+
+<ComponentSource name="scroll-area" title="components/ui/scroll-area.tsx" styleName="new-york-v4" />
+
+<Step>更新导入路径以匹配你的项目结构。</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## 用法
+
+```tsx showLineNumbers
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
+```
+
+```tsx showLineNumbers
+<ScrollArea className="h-[200px] w-[350px] rounded-md border p-4">
+  Your scrollable content here.
+</ScrollArea>
+```
+
+## 组合结构
+
+使用以下组合结构来构建 `ScrollArea`：
+
+```text
+ScrollArea
+└── ScrollBar
+```
+
+## 示例
+
+### 水平滚动
+
+使用带有 `orientation="horizontal"` 的 `ScrollBar` 实现水平滚动。
+
+<ComponentPreview styleName="new-york-v4" name="scroll-area-horizontal-demo" />
+
+## RTL 支持
+
+如需启用 RTL 支持，请参阅 [RTL 配置指南](/docs/rtl)。
+
+{/* <ComponentPreview styleName="new-york-v4" name="scroll-area-rtl" direction="rtl" previewClassName="h-auto" /> */}
+
+## API 参考
+
+更多信息请参阅 [Base UI Scroll Area](https://base-ui.com/react/components/scroll-area#api-reference) 文档。

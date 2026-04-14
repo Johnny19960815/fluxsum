@@ -1,0 +1,150 @@
+---
+title: Button
+description: 显示一个按钮或看起来像按钮的组件。
+featured: true
+base: radix
+component: true
+---
+
+<ComponentPreview styleName="new-york-v4" name="button-demo" />
+
+## 安装
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">命令</TabsTrigger>
+  <TabsTrigger value="manual">手动安装</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add button
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>安装以下依赖：</Step>
+
+```bash
+npm install radix-ui
+```
+
+<Step>将以下代码复制到你的项目中。</Step>
+
+<ComponentSource name="button" title="components/ui/button.tsx" styleName="new-york-v4" />
+
+<Step>更新导入路径以匹配你的项目结构。</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## 用法
+
+```tsx
+import { Button } from "@/components/ui/button"
+```
+
+```tsx
+<Button variant="outline">Button</Button>
+```
+
+## 光标样式
+
+Tailwind v4 将按钮组件的光标从 `cursor: pointer` [切换](https://tailwindcss.com/docs/upgrade-guide#buttons-use-the-default-cursor)为 `cursor: default`。
+
+如果你想保留 `cursor: pointer` 行为，请在 CSS 文件中添加以下代码：
+
+```css showLineNumbers title="globals.css"
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+```
+
+## 示例
+
+### 尺寸
+
+使用 `size` 属性来更改按钮的大小。
+
+<ComponentPreview styleName="new-york-v4" name="button-size" />
+
+### 默认
+
+<ComponentPreview styleName="new-york-v4" name="button-default" />
+
+### 轮廓
+
+<ComponentPreview styleName="new-york-v4" name="button-outline" />
+
+### 次要
+
+<ComponentPreview styleName="new-york-v4" name="button-secondary" />
+
+### 幽灵
+
+<ComponentPreview styleName="new-york-v4" name="button-ghost" />
+
+### 危险
+
+<ComponentPreview styleName="new-york-v4" name="button-destructive" />
+
+### 链接
+
+<ComponentPreview styleName="new-york-v4" name="button-link" />
+
+### 图标
+
+<ComponentPreview styleName="new-york-v4" name="button-icon" />
+
+### 带图标
+
+记得为图标添加 `data-icon="inline-start"` 或 `data-icon="inline-end"` 属性以获得正确的间距。
+
+<ComponentPreview styleName="new-york-v4" name="button-with-icon" />
+
+### 圆角
+
+使用 `rounded-full` 类使按钮变为圆形。
+
+<ComponentPreview styleName="new-york-v4" name="button-rounded" />
+
+
+{/* ComponentPreview name="button-spinner" removed - example not in registry */}
+
+### 按钮组
+
+要创建按钮组，请使用 `ButtonGroup` 组件。详见 [Button Group](/docs/components/radix/button-group) 文档。
+
+<ComponentPreview styleName="new-york-v4" name="button-group-demo" />
+
+
+{/* ComponentPreview name="button-aschild" removed - example not in registry */}
+
+## RTL 支持
+
+如需启用 RTL 支持，请参阅 [RTL 配置指南](/docs/rtl)。
+
+{/* <ComponentPreview styleName="new-york-v4" name="button-rtl" direction="rtl" /> */}
+
+## API 参考
+
+### Button
+
+`Button` 组件是 `button` 元素的封装，添加了多种样式和功能。
+
+| Prop      | Type                                                                                 | Default     |
+| --------- | ------------------------------------------------------------------------------------ | ----------- |
+| `variant` | `"default" \| "outline" \| "ghost" \| "destructive" \| "secondary" \| "link"`        | `"default"` |
+| `size`    | `"default" \| "xs" \| "sm" \| "lg" \| "icon" \| "icon-xs" \| "icon-sm" \| "icon-lg"` | `"default"` |
+| `asChild` | `boolean`                                                                            | `false`     |

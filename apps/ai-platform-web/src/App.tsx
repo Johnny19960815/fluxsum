@@ -1,24 +1,25 @@
-import React, { Suspense, lazy } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { Spin, Layout } from 'antd';
-import MainLayout from './layouts/MainLayout';
+import React, { Suspense, lazy } from 'react'
+import { Routes, Route } from 'react-router-dom'
+import MainLayout from './layouts/MainLayout'
 
-const Home = lazy(() => import('./pages/Home'));
+const Home = lazy(() => import('./pages/Home'))
 
-const FixbuyAssetList = lazy(() => import('fixbuyAdmin/AssetList'));
-const FixbuyDashboard = lazy(() => import('fixbuyAdmin/Dashboard'));
+const FixbuyAssetList = lazy(() => import('fixbuyAdmin/AssetList'))
+const FixbuyDashboard = lazy(() => import('fixbuyAdmin/Dashboard'))
 
-const AifootAnalysis = lazy(() => import('aifootWeb/Analysis'));
+const AifootAnalysis = lazy(() => import('aifootWeb/Analysis'))
 
-const Loading = () => (
-  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-    <Spin size="large" />
-  </div>
-);
+function Loading() {
+  return (
+    <div className="flex h-screen items-center justify-center">
+      <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+    </div>
+  )
+}
 
 function App() {
   return (
-    <Layout style={{ minHeight: '100vh' }}>
+    <div className="min-h-screen bg-background">
       <Suspense fallback={<Loading />}>
         <Routes>
           <Route path="/" element={<MainLayout />}>
@@ -29,8 +30,8 @@ function App() {
           </Route>
         </Routes>
       </Suspense>
-    </Layout>
-  );
+    </div>
+  )
 }
 
-export default App;
+export default App

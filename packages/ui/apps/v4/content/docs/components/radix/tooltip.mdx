@@ -1,0 +1,137 @@
+---
+title: Tooltip
+description: 当元素获得键盘焦点或鼠标悬停时，显示与该元素相关信息的弹出框。
+base: radix
+component: true
+links:
+  doc: https://www.radix-ui.com/docs/primitives/components/tooltip
+  api: https://www.radix-ui.com/docs/primitives/components/tooltip#api-reference
+---
+
+<ComponentPreview styleName="new-york-v4" name="tooltip-demo" />
+
+## 安装
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">命令</TabsTrigger>
+  <TabsTrigger value="manual">手动安装</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+<Steps className="mb-0 pt-2">
+
+<Step>运行以下命令：</Step>
+
+```bash
+npx shadcn@latest add tooltip
+```
+
+<Step>将 `TooltipProvider` 添加到应用的根组件中。</Step>
+
+```tsx title="app/layout.tsx" showLineNumbers {1,7}
+import { TooltipProvider } from "@/components/ui/tooltip"
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>
+        <TooltipProvider>{children}</TooltipProvider>
+      </body>
+    </html>
+  )
+}
+```
+
+</Steps>
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>安装以下依赖：</Step>
+
+```bash
+npm install radix-ui
+```
+
+<Step>将以下代码复制到你的项目中。</Step>
+
+<ComponentSource name="tooltip" title="components/ui/tooltip.tsx" styleName="new-york-v4" />
+
+<Step>更新导入路径以匹配你的项目结构。</Step>
+
+<Step>将 `TooltipProvider` 添加到应用的根组件中。</Step>
+
+```tsx title="app/layout.tsx" showLineNumbers {1,7}
+import { TooltipProvider } from "@/components/ui/tooltip"
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>
+        <TooltipProvider>{children}</TooltipProvider>
+      </body>
+    </html>
+  )
+}
+```
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## 用法
+
+```tsx showLineNumbers
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+```
+
+```tsx showLineNumbers
+<Tooltip>
+  <TooltipTrigger>Hover</TooltipTrigger>
+  <TooltipContent>
+    <p>Add to library</p>
+  </TooltipContent>
+</Tooltip>
+```
+
+## 组合结构
+
+使用以下组合结构来构建 `Tooltip`：
+
+```text
+Tooltip
+├── TooltipTrigger
+└── TooltipContent
+```
+
+## 示例
+
+
+{/* ComponentPreview name="tooltip-sides" removed - example not in registry */}
+
+
+{/* ComponentPreview name="tooltip-keyboard" removed - example not in registry */}
+
+
+{/* ComponentPreview name="tooltip-disabled" removed - example not in registry */}
+
+## RTL 支持
+
+如需启用 RTL 支持，请参阅 [RTL 配置指南](/docs/rtl)。
+
+{/* <ComponentPreview styleName="new-york-v4" name="tooltip-rtl" direction="rtl" /> */}
+
+## API 参考
+
+更多信息请参阅 [Radix Tooltip](https://www.radix-ui.com/docs/primitives/components/tooltip#api-reference) 文档。

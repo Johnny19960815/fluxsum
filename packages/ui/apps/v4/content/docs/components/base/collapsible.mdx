@@ -1,0 +1,120 @@
+---
+title: Collapsible
+description: 一个可以展开/折叠面板的交互式组件。
+base: base
+component: true
+featured: true
+links:
+  doc: https://base-ui.com/react/components/collapsible
+  api: https://base-ui.com/react/components/collapsible#api-reference
+---
+
+<ComponentPreview styleName="new-york-v4" name="collapsible-demo" align="start" />
+
+## 安装
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">命令</TabsTrigger>
+  <TabsTrigger value="manual">手动安装</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add collapsible
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>安装以下依赖：</Step>
+
+```bash
+npm install @base-ui/react
+```
+
+<Step>将以下代码复制到你的项目中。</Step>
+
+<ComponentSource name="collapsible" title="components/ui/collapsible.tsx" styleName="new-york-v4" />
+
+<Step>更新导入路径以匹配你的项目结构。</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## 用法
+
+```tsx showLineNumbers
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible"
+```
+
+```tsx showLineNumbers
+<Collapsible>
+  <CollapsibleTrigger>Can I use this in my project?</CollapsibleTrigger>
+  <CollapsibleContent>
+    Yes. Free to use for personal and commercial projects. No attribution
+    required.
+  </CollapsibleContent>
+</Collapsible>
+```
+
+## 组合结构
+
+使用以下组合结构来构建 `Collapsible`：
+
+```text
+Collapsible
+├── CollapsibleTrigger
+└── CollapsibleContent
+```
+
+## 受控状态
+
+使用 `open` 和 `onOpenChange` 属性来控制状态。
+
+```tsx showLineNumbers
+import * as React from "react"
+
+export function Example() {
+  const [open, setOpen] = React.useState(false)
+
+  return (
+    <Collapsible open={open} onOpenChange={setOpen}>
+      <CollapsibleTrigger>Toggle</CollapsibleTrigger>
+      <CollapsibleContent>Content</CollapsibleContent>
+    </Collapsible>
+  )
+}
+```
+
+## 示例
+
+
+{/* ComponentPreview name="collapsible-basic" removed - example not in registry */}
+
+
+{/* ComponentPreview name="collapsible-settings" removed - example not in registry */}
+
+
+{/* ComponentPreview name="collapsible-file-tree" removed - example not in registry */}
+
+## RTL 支持
+
+如需启用 RTL 支持，请参阅 [RTL 配置指南](/docs/rtl)。
+
+{/* <ComponentPreview styleName="new-york-v4" name="collapsible-rtl" direction="rtl" align="start" /> */}
+
+## API 参考
+
+更多信息请参阅 [Base UI](https://base-ui.com/react/components/collapsible#api-reference) 文档。

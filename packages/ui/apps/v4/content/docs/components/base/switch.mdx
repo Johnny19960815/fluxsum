@@ -1,0 +1,86 @@
+---
+title: Switch
+description: 一个允许用户在选中和未选中状态之间切换的控件。
+base: base
+component: true
+links:
+  doc: https://base-ui.com/react/components/switch
+  api: https://base-ui.com/react/components/switch#api-reference
+---
+
+<ComponentPreview styleName="new-york-v4" name="switch-demo" />
+
+## 安装
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">命令</TabsTrigger>
+  <TabsTrigger value="manual">手动安装</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add switch
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>安装以下依赖：</Step>
+
+```bash
+npm install @base-ui/react
+```
+
+<Step>将以下代码复制到你的项目中。</Step>
+
+<ComponentSource name="switch" title="components/ui/switch.tsx" styleName="new-york-v4" />
+
+<Step>更新导入路径以匹配你的项目结构。</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## 用法
+
+```tsx
+import { Switch } from "@/components/ui/switch"
+```
+
+```tsx
+<Switch />
+```
+
+## 示例
+
+
+{/* ComponentPreview name="switch-description" removed - example not in registry */}
+
+
+{/* ComponentPreview name="switch-choice-card" removed - example not in registry */}
+
+
+{/* ComponentPreview name="switch-disabled" removed - example not in registry */}
+
+
+{/* ComponentPreview name="switch-invalid" removed - example not in registry */}
+
+
+{/* ComponentPreview name="switch-sizes" removed - example not in registry */}
+
+## RTL 支持
+
+如需启用 RTL 支持，请参阅 [RTL 配置指南](/docs/rtl)。
+
+{/* <ComponentPreview styleName="new-york-v4" name="switch-rtl" direction="rtl" /> */}
+
+## API 参考
+
+更多信息请参阅 [Base UI Switch](https://base-ui.com/react/components/switch#api-reference) 文档。

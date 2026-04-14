@@ -1,0 +1,172 @@
+---
+title: Dropdown Menu
+description: 向用户显示一组操作或功能的菜单——由按钮触发。
+featured: true
+base: base
+component: true
+links:
+  doc: https://base-ui.com/react/components/menu
+  api: https://base-ui.com/react/components/menu#api-reference
+---
+
+<ComponentPreview
+  styleName="new-york-v4"
+  name="dropdown-menu-demo"
+  description="A dropdown menu with icons, shortcuts and sub menu items."
+/>
+
+## 安装
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">命令</TabsTrigger>
+  <TabsTrigger value="manual">手动安装</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add dropdown-menu
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>安装以下依赖：</Step>
+
+```bash
+npm install @base-ui/react
+```
+
+<Step>将以下代码复制到你的项目中。</Step>
+
+<ComponentSource name="dropdown-menu" title="components/ui/dropdown-menu.tsx" styleName="new-york-v4" />
+
+<Step>更新导入路径以匹配你的项目结构。</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## 用法
+
+```tsx showLineNumbers
+import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+```
+
+```tsx showLineNumbers
+<DropdownMenu>
+  <DropdownMenuTrigger render={<Button variant="outline" />}>
+    Open
+  </DropdownMenuTrigger>
+  <DropdownMenuContent>
+    <DropdownMenuGroup>
+      <DropdownMenuLabel>My Account</DropdownMenuLabel>
+      <DropdownMenuItem>Profile</DropdownMenuItem>
+      <DropdownMenuItem>Billing</DropdownMenuItem>
+    </DropdownMenuGroup>
+    <DropdownMenuSeparator />
+    <DropdownMenuGroup>
+      <DropdownMenuItem>Team</DropdownMenuItem>
+      <DropdownMenuItem>Subscription</DropdownMenuItem>
+    </DropdownMenuGroup>
+  </DropdownMenuContent>
+</DropdownMenu>
+```
+
+## 组合结构
+
+使用以下组合结构来构建 `DropdownMenu`：
+
+```text
+DropdownMenu
+├── DropdownMenuTrigger
+└── DropdownMenuContent
+    ├── DropdownMenuGroup
+    │   ├── DropdownMenuLabel
+    │   ├── DropdownMenuItem
+    │   └── DropdownMenuItem
+    ├── DropdownMenuSeparator
+    ├── DropdownMenuGroup
+    │   ├── DropdownMenuLabel
+    │   ├── DropdownMenuCheckboxItem
+    │   └── DropdownMenuCheckboxItem
+    ├── DropdownMenuSeparator
+    ├── DropdownMenuGroup
+    │   ├── DropdownMenuLabel
+    │   └── DropdownMenuRadioGroup
+    │       ├── DropdownMenuRadioItem
+    │       └── DropdownMenuRadioItem
+    └── DropdownMenuSub
+        ├── DropdownMenuSubTrigger
+        └── DropdownMenuSubContent
+            └── DropdownMenuGroup
+                ├── DropdownMenuLabel
+                ├── DropdownMenuItem
+                └── DropdownMenuItem
+```
+
+## 示例
+
+
+{/* ComponentPreview name="dropdown-menu-basic" removed - example not in registry */}
+
+
+{/* ComponentPreview name="dropdown-menu-submenu" removed - example not in registry */}
+
+
+{/* ComponentPreview name="dropdown-menu-shortcuts" removed - example not in registry */}
+
+
+{/* ComponentPreview name="dropdown-menu-icons" removed - example not in registry */}
+
+### 复选框
+
+使用 `DropdownMenuCheckboxItem` 实现切换功能。
+
+<ComponentPreview styleName="new-york-v4" name="dropdown-menu-checkboxes" />
+
+
+{/* ComponentPreview name="dropdown-menu-checkboxes-icons" removed - example not in registry */}
+
+### 单选组
+
+使用 `DropdownMenuRadioGroup` 实现互斥选择。
+
+<ComponentPreview styleName="new-york-v4" name="dropdown-menu-radio-group" />
+
+
+{/* ComponentPreview name="dropdown-menu-radio-icons" removed - example not in registry */}
+
+
+{/* ComponentPreview name="dropdown-menu-destructive" removed - example not in registry */}
+
+
+{/* ComponentPreview name="dropdown-menu-avatar" removed - example not in registry */}
+
+
+{/* ComponentPreview name="dropdown-menu-complex" removed - example not in registry */}
+
+## RTL 支持
+
+如需启用 RTL 支持，请参阅 [RTL 配置指南](/docs/rtl)。
+
+{/* <ComponentPreview styleName="new-york-v4" name="dropdown-menu-rtl" direction="rtl" /> */}
+
+## API 参考
+
+完整的 API 参考请参阅 [Base UI 文档](https://base-ui.com/react/components/menu)。

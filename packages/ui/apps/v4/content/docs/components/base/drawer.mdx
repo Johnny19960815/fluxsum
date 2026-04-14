@@ -1,0 +1,123 @@
+---
+title: Drawer
+description: 一个 React 抽屉组件。
+base: base
+component: true
+links:
+  doc: https://vaul.emilkowal.ski/getting-started
+---
+
+<ComponentPreview styleName="new-york-v4" name="drawer-demo" />
+
+## 关于
+
+Drawer 基于 [emilkowalski](https://twitter.com/emilkowalski) 开发的 [Vaul](https://github.com/emilkowalski/vaul) 构建。
+
+## 安装
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">命令</TabsTrigger>
+  <TabsTrigger value="manual">手动安装</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add drawer
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>安装以下依赖：</Step>
+
+```bash
+npm install vaul
+```
+
+<Step>将以下代码复制到你的项目中。</Step>
+
+<ComponentSource name="drawer" title="components/ui/drawer.tsx" styleName="new-york-v4" />
+
+<Step>更新导入路径以匹配你的项目结构。</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## 用法
+
+```tsx showLineNumbers
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer"
+```
+
+```tsx showLineNumbers
+<Drawer>
+  <DrawerTrigger>Open</DrawerTrigger>
+  <DrawerContent>
+    <DrawerHeader>
+      <DrawerTitle>Are you absolutely sure?</DrawerTitle>
+      <DrawerDescription>This action cannot be undone.</DrawerDescription>
+    </DrawerHeader>
+    <DrawerFooter>
+      <Button>Submit</Button>
+      <DrawerClose>
+        <Button variant="outline">Cancel</Button>
+      </DrawerClose>
+    </DrawerFooter>
+  </DrawerContent>
+</Drawer>
+```
+
+## 组合结构
+
+使用以下组合结构来构建 `Drawer`：
+
+```text
+Drawer
+├── DrawerTrigger
+└── DrawerContent
+    ├── DrawerHeader
+    │   ├── DrawerTitle
+    │   └── DrawerDescription
+    └── DrawerFooter
+```
+
+## 示例
+
+
+{/* ComponentPreview name="drawer-scrollable-content" removed - example not in registry */}
+
+
+{/* ComponentPreview name="drawer-sides" removed - example not in registry */}
+
+### 响应式对话框
+
+你可以组合 `Dialog` 和 `Drawer` 组件来创建响应式对话框。这将在桌面端渲染 `Dialog` 组件，在移动端渲染 `Drawer`。
+
+<ComponentPreview styleName="new-york-v4" name="drawer-dialog" />
+
+## RTL 支持
+
+如需启用 RTL 支持，请参阅 [RTL 配置指南](/docs/rtl)。
+
+{/* <ComponentPreview styleName="new-york-v4" name="drawer-rtl" direction="rtl" /> */}
+
+## API 参考
+
+完整的 API 参考请参阅 [Vaul 文档](https://vaul.emilkowal.ski/getting-started)。

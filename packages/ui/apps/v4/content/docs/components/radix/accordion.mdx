@@ -1,0 +1,118 @@
+---
+title: Accordion
+description: 一组垂直堆叠的可交互标题，每个标题可以展开显示一段内容。
+base: radix
+component: true
+links:
+  doc: https://www.radix-ui.com/primitives/docs/components/accordion
+  api: https://www.radix-ui.com/primitives/docs/components/accordion#api-reference
+---
+
+<ComponentPreview
+  name="accordion-demo"
+  styleName="new-york-v4"
+  align="start"
+  previewClassName="*:data-[slot=accordion]:max-w-sm h-[300px]"
+/>
+
+## 安装
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">命令</TabsTrigger>
+  <TabsTrigger value="manual">手动安装</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add accordion
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>安装以下依赖：</Step>
+
+```bash
+npm install radix-ui
+```
+
+<Step>将以下代码复制到你的项目中。</Step>
+
+<ComponentSource name="accordion" title="components/ui/accordion.tsx" styleName="new-york-v4" />
+
+<Step>更新导入路径以匹配你的项目结构。</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## 用法
+
+```tsx showLineNumbers
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+```
+
+```tsx showLineNumbers
+<Accordion type="single" collapsible defaultValue="item-1">
+  <AccordionItem value="item-1">
+    <AccordionTrigger>Is it accessible?</AccordionTrigger>
+    <AccordionContent>
+      Yes. It adheres to the WAI-ARIA design pattern.
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
+```
+
+## 组合结构
+
+使用以下组合结构来构建 `Accordion`：
+
+```text
+Accordion
+├── AccordionItem
+│   ├── AccordionTrigger
+│   └── AccordionContent
+└── AccordionItem
+    ├── AccordionTrigger
+    └── AccordionContent
+```
+
+## 示例
+
+
+{/* ComponentPreview name="accordion-basic" removed - example not in registry */}
+
+
+{/* ComponentPreview name="accordion-multiple" removed - example not in registry */}
+
+
+{/* ComponentPreview name="accordion-disabled" removed - example not in registry */}
+
+
+{/* ComponentPreview name="accordion-borders" removed - example not in registry */}
+
+
+{/* ComponentPreview name="accordion-card" removed - example not in registry */}
+
+## RTL 支持
+
+如需启用 RTL 支持，请参阅 [RTL 配置指南](/docs/rtl)。
+
+{/* <ComponentPreview styleName="new-york-v4" name="accordion-rtl" align="start" direction="rtl" /> */}
+
+## API 参考
+
+更多信息请参阅 [Radix UI](https://www.radix-ui.com/primitives/docs/components/accordion#api-reference) 文档。

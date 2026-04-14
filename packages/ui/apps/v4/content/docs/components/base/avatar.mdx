@@ -1,0 +1,189 @@
+---
+title: Avatar
+description: 带有后备显示的图像元素，用于表示用户。
+base: base
+component: true
+links:
+  doc: https://base-ui.com/react/components/avatar
+  api: https://base-ui.com/react/components/avatar#api-reference
+---
+
+<ComponentPreview
+  styleName="new-york-v4"
+  name="avatar-demo"
+  previewClassName="h-72"
+/>
+
+## 安装
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">命令</TabsTrigger>
+  <TabsTrigger value="manual">手动安装</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add avatar
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>安装以下依赖：</Step>
+
+```bash
+npm install @base-ui/react
+```
+
+<Step>将以下代码复制到你的项目中。</Step>
+
+<ComponentSource name="avatar" title="components/ui/avatar.tsx" styleName="new-york-v4" />
+
+<Step>更新导入路径以匹配你的项目结构。</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## 用法
+
+```tsx showLineNumbers
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+```
+
+```tsx showLineNumbers
+<Avatar>
+  <AvatarImage src="https://github.com/shadcn.png" />
+  <AvatarFallback>CN</AvatarFallback>
+</Avatar>
+```
+
+## 组合结构
+
+使用以下组合结构来构建 `Avatar`：
+
+```text
+Avatar
+├── AvatarImage
+├── AvatarFallback
+└── AvatarBadge
+```
+
+使用以下组合结构来构建 `AvatarGroup`：
+
+```text
+AvatarGroup
+├── Avatar
+│   ├── AvatarImage
+│   ├── AvatarFallback
+│   └── AvatarBadge
+├── Avatar
+│   ├── AvatarImage
+│   ├── AvatarFallback
+│   └── AvatarBadge
+└── AvatarGroupCount
+```
+
+## 示例
+
+
+{/* ComponentPreview name="avatar-basic" removed - example not in registry */}
+
+
+{/* ComponentPreview name="avatar-badge" removed - example not in registry */}
+
+使用 `className` 属性为徽章添加自定义样式，例如自定义颜色、尺寸等。
+
+```tsx showLineNumbers
+<Avatar>
+  <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+  <AvatarFallback>CN</AvatarFallback>
+  <AvatarBadge className="bg-green-600 dark:bg-green-800" />
+</Avatar>
+```
+
+
+{/* ComponentPreview name="avatar-badge-icon" removed - example not in registry */}
+
+
+{/* ComponentPreview name="avatar-group" removed - example not in registry */}
+
+
+{/* ComponentPreview name="avatar-group-count" removed - example not in registry */}
+
+
+{/* ComponentPreview name="avatar-group-count-icon" removed - example not in registry */}
+
+
+{/* ComponentPreview name="avatar-size" removed - example not in registry */}
+
+
+{/* ComponentPreview name="avatar-dropdown" removed - example not in registry */}
+
+## RTL 支持
+
+如需启用 RTL 支持，请参阅 [RTL 配置指南](/docs/rtl)。
+
+{/* <ComponentPreview styleName="new-york-v4" name="avatar-rtl" direction="rtl" previewClassName="h-72" /> */}
+
+## API 参考
+
+### Avatar
+
+`Avatar` 组件是包裹头像图片和后备内容的根组件。
+
+| Prop        | Type                        | Default     |
+| ----------- | --------------------------- | ----------- |
+| `size`      | `"default" \| "sm" \| "lg"` | `"default"` |
+| `className` | `string`                    | -           |
+
+### AvatarImage
+
+`AvatarImage` 组件用于显示头像图片。它接受所有 Base UI Avatar Image 的属性。
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `src`       | `string` | -       |
+| `alt`       | `string` | -       |
+| `className` | `string` | -       |
+
+### AvatarFallback
+
+`AvatarFallback` 组件在图片加载失败时显示后备内容。它接受所有 Base UI Avatar Fallback 的属性。
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` | -       |
+
+### AvatarBadge
+
+`AvatarBadge` 组件在头像上显示一个徽章指示器，通常定位在右下角。
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` | -       |
+
+### AvatarGroup
+
+`AvatarGroup` 组件以重叠样式显示一组头像。
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` | -       |
+
+### AvatarGroupCount
+
+`AvatarGroupCount` 组件在头像组中显示数量指示器，通常用于显示额外的头像数量。
+
+| Prop        | Type     | Default |
+| ----------- | -------- | ------- |
+| `className` | `string` | -       |
+
+更多关于 Base UI Avatar 属性的信息，请参阅 [Base UI 文档](https://base-ui.com/react/components/avatar#api-reference)。

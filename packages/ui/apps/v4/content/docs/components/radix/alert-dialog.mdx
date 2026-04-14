@@ -1,0 +1,143 @@
+---
+title: Alert Dialog
+description: 一个模态对话框，用于向用户展示重要内容并要求用户做出回应。
+featured: true
+base: radix
+component: true
+links:
+  doc: https://www.radix-ui.com/primitives/docs/components/alert-dialog
+  api: https://www.radix-ui.com/primitives/docs/components/alert-dialog#api-reference
+---
+
+<ComponentPreview
+  name="alert-dialog-demo"
+  styleName="new-york-v4"
+  previewClassName="h-56"
+/>
+
+## 安装
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">命令</TabsTrigger>
+  <TabsTrigger value="manual">手动安装</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add alert-dialog
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>安装以下依赖：</Step>
+
+```bash
+npm install radix-ui
+```
+
+<Step>将以下代码复制到你的项目中。</Step>
+
+<ComponentSource name="alert-dialog" title="components/ui/alert-dialog.tsx" styleName="new-york-v4" />
+
+<Step>更新导入路径以匹配你的项目结构。</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## 用法
+
+```tsx showLineNumbers
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+```
+
+```tsx showLineNumbers
+<AlertDialog>
+  <AlertDialogTrigger asChild>
+    <Button variant="outline">Show Dialog</Button>
+  </AlertDialogTrigger>
+  <AlertDialogContent>
+    <AlertDialogHeader>
+      <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+      <AlertDialogDescription>
+        This action cannot be undone. This will permanently delete your account
+        from our servers.
+      </AlertDialogDescription>
+    </AlertDialogHeader>
+    <AlertDialogFooter>
+      <AlertDialogCancel>Cancel</AlertDialogCancel>
+      <AlertDialogAction>Continue</AlertDialogAction>
+    </AlertDialogFooter>
+  </AlertDialogContent>
+</AlertDialog>
+```
+
+## 组合结构
+
+使用以下组合结构来构建 `AlertDialog`：
+
+```text
+AlertDialog
+├── AlertDialogTrigger
+└── AlertDialogContent
+    ├── AlertDialogHeader
+    │   ├── AlertDialogMedia
+    │   ├── AlertDialogTitle
+    │   └── AlertDialogDescription
+    └── AlertDialogFooter
+        ├── AlertDialogCancel
+        └── AlertDialogAction
+```
+
+## 示例
+
+
+{/* ComponentPreview name="alert-dialog-basic" removed - example not in registry */}
+
+
+{/* ComponentPreview name="alert-dialog-small" removed - example not in registry */}
+
+
+{/* ComponentPreview name="alert-dialog-media" removed - example not in registry */}
+
+
+{/* ComponentPreview name="alert-dialog-small-media" removed - example not in registry */}
+
+
+{/* ComponentPreview name="alert-dialog-destructive" removed - example not in registry */}
+
+## RTL 支持
+
+如需启用 RTL 支持，请参阅 [RTL 配置指南](/docs/rtl)。
+
+{/* <ComponentPreview styleName="new-york-v4" name="alert-dialog-rtl" direction="rtl" previewClassName="h-56" /> */}
+
+## API 参考
+
+### size
+
+使用 `AlertDialogContent` 组件上的 `size` 属性来控制警告对话框的大小。它接受以下值：
+
+| Prop   | Type                | Default     |
+| ------ | ------------------- | ----------- |
+| `size` | `"default" \| "sm"` | `"default"` |
+
+更多关于其他组件及其属性的信息，请参阅 [Radix UI 文档](https://www.radix-ui.com/primitives/docs/components/alert-dialog#api-reference)。

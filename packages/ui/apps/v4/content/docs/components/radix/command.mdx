@@ -1,0 +1,135 @@
+---
+title: Command
+description: 用于搜索和快捷操作的命令菜单。
+base: radix
+component: true
+links:
+  doc: https://github.com/dip/cmdk
+---
+
+<ComponentPreview
+  styleName="new-york-v4"
+  name="command-demo"
+  align="start"
+  previewClassName="h-[24.5rem]"
+/>
+
+## 关于
+
+`<Command />` 组件使用了由 [Dip](https://www.dip.org/) 开发的 [`cmdk`](https://github.com/dip/cmdk) 组件。
+
+## 安装
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">命令</TabsTrigger>
+  <TabsTrigger value="manual">手动安装</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add command
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>安装以下依赖：</Step>
+
+```bash
+npm install cmdk
+```
+
+<Step>将以下代码复制到你的项目中。</Step>
+
+<ComponentSource name="command" title="components/ui/command.tsx" styleName="new-york-v4" />
+
+<Step>更新导入路径以匹配你的项目结构。</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## 用法
+
+```tsx showLineNumbers
+import {
+  Command,
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+  CommandShortcut,
+} from "@/components/ui/command"
+```
+
+```tsx showLineNumbers
+<Command className="max-w-sm rounded-lg border">
+  <CommandInput placeholder="Type a command or search..." />
+  <CommandList>
+    <CommandEmpty>No results found.</CommandEmpty>
+    <CommandGroup heading="Suggestions">
+      <CommandItem>Calendar</CommandItem>
+      <CommandItem>Search Emoji</CommandItem>
+      <CommandItem>Calculator</CommandItem>
+    </CommandGroup>
+    <CommandSeparator />
+    <CommandGroup heading="Settings">
+      <CommandItem>Profile</CommandItem>
+      <CommandItem>Billing</CommandItem>
+      <CommandItem>Settings</CommandItem>
+    </CommandGroup>
+  </CommandList>
+</Command>
+```
+
+## 组合结构
+
+使用以下组合结构来构建 `Command`：
+
+```text
+Command
+├── CommandInput
+└── CommandList
+    ├── CommandEmpty
+    ├── CommandGroup
+    │   ├── CommandItem
+    │   └── CommandItem
+    ├── CommandSeparator
+    └── CommandGroup
+        ├── CommandItem
+        └── CommandItem
+```
+
+## 示例
+
+
+{/* ComponentPreview name="command-basic" removed - example not in registry */}
+
+
+{/* ComponentPreview name="command-shortcuts" removed - example not in registry */}
+
+
+{/* ComponentPreview name="command-groups" removed - example not in registry */}
+
+
+{/* ComponentPreview name="command-scrollable" removed - example not in registry */}
+
+## RTL 支持
+
+如需启用 RTL 支持，请参阅 [RTL 配置指南](/docs/rtl)。
+
+{/* <ComponentPreview styleName="new-york-v4" name="command-rtl" direction="rtl" align="start" previewClassName="h-[24.5rem]" /> */}
+
+## API 参考
+
+更多信息请参阅 [cmdk](https://github.com/dip/cmdk) 文档。

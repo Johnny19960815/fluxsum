@@ -1,0 +1,160 @@
+---
+title: Context Menu
+description: 显示由右键点击触发的操作菜单。
+base: base
+component: true
+links:
+  doc: https://base-ui.com/react/components/context-menu
+  api: https://base-ui.com/react/components/context-menu#api-reference
+---
+
+<ComponentPreview
+  styleName="new-york-v4"
+  name="context-menu-demo"
+  description="A context menu with sub menu items."
+/>
+
+## 安装
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">命令</TabsTrigger>
+  <TabsTrigger value="manual">手动安装</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add context-menu
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>安装以下依赖：</Step>
+
+```bash
+npm install @base-ui/react
+```
+
+<Step>将以下代码复制到你的项目中。</Step>
+
+<ComponentSource name="context-menu" title="components/ui/context-menu.tsx" styleName="new-york-v4" />
+
+<Step>更新导入路径以匹配你的项目结构。</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## 用法
+
+```tsx showLineNumbers
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+} from "@/components/ui/context-menu"
+```
+
+```tsx showLineNumbers
+<ContextMenu>
+  <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+  <ContextMenuContent>
+    <ContextMenuItem>Profile</ContextMenuItem>
+    <ContextMenuItem>Billing</ContextMenuItem>
+    <ContextMenuItem>Team</ContextMenuItem>
+    <ContextMenuItem>Subscription</ContextMenuItem>
+  </ContextMenuContent>
+</ContextMenu>
+```
+
+## 组合结构
+
+使用以下组合结构来构建 `ContextMenu`：
+
+```text
+ContextMenu
+├── ContextMenuTrigger
+└── ContextMenuContent
+    ├── ContextMenuGroup
+    │   ├── ContextMenuLabel
+    │   ├── ContextMenuItem
+    │   └── ContextMenuItem
+    ├── ContextMenuSeparator
+    ├── ContextMenuGroup
+    │   ├── ContextMenuLabel
+    │   ├── ContextMenuCheckboxItem
+    │   └── ContextMenuCheckboxItem
+    ├── ContextMenuSeparator
+    ├── ContextMenuGroup
+    │   ├── ContextMenuLabel
+    │   └── ContextMenuRadioGroup
+    │       ├── ContextMenuRadioItem
+    │       └── ContextMenuRadioItem
+    └── ContextMenuSub
+        ├── ContextMenuSubTrigger
+        └── ContextMenuSubContent
+            └── ContextMenuGroup
+                ├── ContextMenuItem
+                └── ContextMenuItem
+```
+
+## 示例
+
+
+{/* ComponentPreview name="context-menu-basic" removed - example not in registry */}
+
+
+{/* ComponentPreview name="context-menu-submenu" removed - example not in registry */}
+
+
+{/* ComponentPreview name="context-menu-shortcuts" removed - example not in registry */}
+
+
+{/* ComponentPreview name="context-menu-groups" removed - example not in registry */}
+
+
+{/* ComponentPreview name="context-menu-icons" removed - example not in registry */}
+
+
+{/* ComponentPreview name="context-menu-checkboxes" removed - example not in registry */}
+
+
+{/* ComponentPreview name="context-menu-radio" removed - example not in registry */}
+
+
+{/* ComponentPreview name="context-menu-destructive" removed - example not in registry */}
+
+
+{/* ComponentPreview name="context-menu-sides" removed - example not in registry */}
+
+## RTL 支持
+
+如需启用 RTL 支持，请参阅 [RTL 配置指南](/docs/rtl)。
+
+{/* <ComponentPreview styleName="new-york-v4" name="context-menu-rtl" direction="rtl" /> */}
+
+使用 `side="inline-end"` 将菜单放置在触发器的逻辑右侧。
+
+```tsx showLineNumbers
+<ContextMenu>
+  <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+  <ContextMenuContent side="inline-end">
+    <ContextMenuItem>Profile</ContextMenuItem>
+    <ContextMenuItem>Billing</ContextMenuItem>
+    <ContextMenuItem>Team</ContextMenuItem>
+    <ContextMenuItem>Subscription</ContextMenuItem>
+  </ContextMenuContent>
+</ContextMenu>
+```
+
+## API 参考
+
+更多信息请参阅 [Base UI](https://base-ui.com/react/components/context-menu#api-reference) 文档。

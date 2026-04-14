@@ -1,0 +1,237 @@
+---
+title: Button Group
+description: 一个将相关按钮组合在一起并保持一致样式的容器。
+base: radix
+component: true
+---
+
+<ComponentPreview styleName="new-york-v4" name="button-group-demo" />
+
+## 安装
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">命令</TabsTrigger>
+  <TabsTrigger value="manual">手动安装</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add button-group
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>安装以下依赖：</Step>
+
+```bash
+npm install radix-ui
+```
+
+<Step>将以下代码复制到你的项目中。</Step>
+
+<ComponentSource name="button-group" title="components/ui/button-group.tsx" styleName="new-york-v4" />
+
+<Step>更新导入路径以匹配你的项目结构。</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## 用法
+
+```tsx
+import {
+  ButtonGroup,
+  ButtonGroupSeparator,
+  ButtonGroupText,
+} from "@/components/ui/button-group"
+```
+
+```tsx
+<ButtonGroup>
+  <Button>Button 1</Button>
+  <Button>Button 2</Button>
+</ButtonGroup>
+```
+
+## 组合结构
+
+使用以下组合结构来构建 `ButtonGroup`：
+
+```text
+ButtonGroup
+├── Button or Input
+├── ButtonGroupSeparator
+└── ButtonGroupText
+```
+
+## 无障碍
+
+- `ButtonGroup` 组件的 `role` 属性设置为 `group`。
+- 使用 <Kbd>Tab</Kbd> 在组内按钮之间导航。
+- 使用 `aria-label` 或 `aria-labelledby` 为按钮组添加标签。
+
+```tsx showLineNumbers
+<ButtonGroup aria-label="Button group">
+  <Button>Button 1</Button>
+  <Button>Button 2</Button>
+</ButtonGroup>
+```
+
+## ButtonGroup 与 ToggleGroup 的区别
+
+- 当你想要将执行操作的按钮分组时，使用 `ButtonGroup` 组件。
+- 当你想要将切换状态的按钮分组时，使用 `ToggleGroup` 组件。
+
+## 示例
+
+### 方向
+
+设置 `orientation` 属性来更改按钮组的布局方向。
+
+<ComponentPreview styleName="new-york-v4" name="button-group-orientation" />
+
+### 尺寸
+
+使用单个按钮上的 `size` 属性来控制按钮的大小。
+
+<ComponentPreview styleName="new-york-v4" name="button-group-size" />
+
+### 嵌套
+
+嵌套 `<ButtonGroup>` 组件来创建带间距的按钮组。
+
+<ComponentPreview styleName="new-york-v4" name="button-group-nested" />
+
+### 分隔符
+
+`ButtonGroupSeparator` 组件在组内按钮之间添加视觉分隔。
+
+使用 `outline` 变体的按钮不需要分隔符，因为它们自带边框。对于其他变体，建议使用分隔符来改善视觉层次。
+
+<ComponentPreview styleName="new-york-v4" name="button-group-separator" />
+
+### 拆分
+
+通过在两个按钮之间添加 `ButtonGroupSeparator` 来创建拆分按钮组。
+
+<ComponentPreview styleName="new-york-v4" name="button-group-split" />
+
+### 输入框
+
+将 `Input` 组件与按钮组合使用。
+
+<ComponentPreview styleName="new-york-v4" name="button-group-input" />
+
+### 输入框组
+
+包裹 `InputGroup` 组件来创建复杂的输入布局。
+
+<ComponentPreview styleName="new-york-v4" name="button-group-input-group" />
+
+### 下拉菜单
+
+使用 `DropdownMenu` 组件创建拆分按钮组。
+
+<ComponentPreview styleName="new-york-v4" name="button-group-dropdown" />
+
+### 选择器
+
+与 `Select` 组件配合使用。
+
+<ComponentPreview styleName="new-york-v4" name="button-group-select" />
+
+### 弹出框
+
+与 `Popover` 组件配合使用。
+
+<ComponentPreview styleName="new-york-v4" name="button-group-popover" />
+
+## RTL 支持
+
+如需启用 RTL 支持，请参阅 [RTL 配置指南](/docs/rtl)。
+
+{/* <ComponentPreview styleName="new-york-v4" name="button-group-rtl" direction="rtl" /> */}
+
+## API 参考
+
+### ButtonGroup
+
+`ButtonGroup` 组件是一个将相关按钮组合在一起并保持一致样式的容器。
+
+| Prop          | Type                         | Default        |
+| ------------- | ---------------------------- | -------------- |
+| `orientation` | `"horizontal" \| "vertical"` | `"horizontal"` |
+
+```tsx
+<ButtonGroup>
+  <Button>Button 1</Button>
+  <Button>Button 2</Button>
+</ButtonGroup>
+```
+
+嵌套多个按钮组可创建带间距的复杂布局。详见[嵌套](#嵌套)示例。
+
+```tsx
+<ButtonGroup>
+  <ButtonGroup />
+  <ButtonGroup />
+</ButtonGroup>
+```
+
+### ButtonGroupSeparator
+
+`ButtonGroupSeparator` 组件在组内按钮之间添加视觉分隔。
+
+| Prop          | Type                         | Default      |
+| ------------- | ---------------------------- | ------------ |
+| `orientation` | `"horizontal" \| "vertical"` | `"vertical"` |
+
+```tsx
+<ButtonGroup>
+  <Button>Button 1</Button>
+  <ButtonGroupSeparator />
+  <Button>Button 2</Button>
+</ButtonGroup>
+```
+
+### ButtonGroupText
+
+使用此组件在按钮组中显示文本。
+
+| Prop      | Type      | Default |
+| --------- | --------- | ------- |
+| `asChild` | `boolean` | `false` |
+
+```tsx
+<ButtonGroup>
+  <ButtonGroupText>Text</ButtonGroupText>
+  <Button>Button</Button>
+</ButtonGroup>
+```
+
+使用 `asChild` 属性将自定义组件渲染为文本，例如 label。
+
+```tsx showLineNumbers
+import { ButtonGroupText } from "@/components/ui/button-group"
+import { Label } from "@/components/ui/label"
+
+export function ButtonGroupTextDemo() {
+  return (
+    <ButtonGroup>
+      <ButtonGroupText asChild>
+        <Label htmlFor="name">Text</Label>
+      </ButtonGroupText>
+      <Input placeholder="Type something here..." id="name" />
+    </ButtonGroup>
+  )
+}
+```

@@ -1,0 +1,83 @@
+---
+title: Direction
+description: 用于设置应用文本方向的提供者组件。
+base: radix
+component: true
+links:
+  doc: https://www.radix-ui.com/primitives/docs/utilities/direction-provider
+  api: https://www.radix-ui.com/primitives/docs/utilities/direction-provider#api-reference
+---
+
+`DirectionProvider` 组件用于设置应用的文本方向（`ltr` 或 `rtl`）。这对于支持从右到左的语言（如阿拉伯语、希伯来语和波斯语）至关重要。
+
+以下是组件在 RTL 模式下的预览。使用语言选择器切换语言。要查看更多示例，请查看组件页面中的 RTL 部分。
+
+{/* <ComponentPreview styleName="new-york-v4" name="card-rtl" direction="rtl" previewClassName="h-auto" hideCode /> */}
+
+## 安装
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">命令</TabsTrigger>
+  <TabsTrigger value="manual">手动安装</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add direction
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>安装以下依赖：</Step>
+
+```bash
+npm install radix-ui
+```
+
+<Step>将以下代码复制到你的项目中。</Step>
+
+<ComponentSource name="direction" title="components/ui/direction.tsx" styleName="new-york-v4" />
+
+<Step>更新导入路径以匹配你的项目结构。</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## 用法
+
+```tsx showLineNumbers
+import { DirectionProvider } from "@/components/ui/direction"
+```
+
+```tsx showLineNumbers
+<html dir="rtl">
+  <body>
+    <DirectionProvider direction="rtl">
+      {/* Your app content */}
+    </DirectionProvider>
+  </body>
+</html>
+```
+
+## useDirection
+
+`useDirection` hook 用于获取应用的当前文本方向。
+
+```tsx showLineNumbers
+import { useDirection } from "@/components/ui/direction"
+
+function MyComponent() {
+  const direction = useDirection()
+  return <div>Current direction: {direction}</div>
+}
+```

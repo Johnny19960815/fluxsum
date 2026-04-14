@@ -1,0 +1,85 @@
+---
+title: Aspect Ratio
+description: 以指定的宽高比显示内容。
+base: base
+component: true
+---
+
+<ComponentPreview name="aspect-ratio-demo" styleName="new-york-v4" />
+
+## 安装
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">命令</TabsTrigger>
+  <TabsTrigger value="manual">手动安装</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add aspect-ratio
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps className="mb-0 pt-2">
+
+<Step>安装以下依赖：</Step>
+
+```bash
+npm install @base-ui/react
+```
+
+<Step>将以下代码复制到你的项目中。</Step>
+
+<ComponentSource name="aspect-ratio" title="components/ui/aspect-ratio.tsx" styleName="new-york-v4" />
+
+<Step>更新导入路径以匹配你的项目结构。</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## 用法
+
+```tsx showLineNumbers
+import { AspectRatio } from "@/components/ui/aspect-ratio"
+```
+
+```tsx showLineNumbers
+<AspectRatio ratio={16 / 9}>
+  <Image src="..." alt="Image" className="rounded-md object-cover" />
+</AspectRatio>
+```
+
+## 示例
+
+
+{/* ComponentPreview name="aspect-ratio-square" removed - example not in registry */}
+
+
+{/* ComponentPreview name="aspect-ratio-portrait" removed - example not in registry */}
+
+## RTL 支持
+
+如需启用 RTL 支持，请参阅 [RTL 配置指南](/docs/rtl)。
+
+{/* <ComponentPreview styleName="new-york-v4" name="aspect-ratio-rtl" direction="rtl" previewClassName="h-96" /> */}
+
+## API 参考
+
+### AspectRatio
+
+`AspectRatio` 组件以指定的宽高比显示内容。
+
+| Prop        | Type     | Default | Required |
+| ----------- | -------- | ------- | -------- |
+| `ratio`     | `number` | -       | Yes      |
+| `className` | `string` | -       | No       |
+
+更多信息请参阅 [Base UI 文档](https://base-ui.com/react/components/aspect-ratio#api-reference)。
