@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  hub-central-server:
+    build:
+      context: ../../apps/hub-central-server
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - ENV=development
+      - JWT_SECRET=${JWT_SECRET}
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+      - postgres
+    networks:
+      - fluxsum-network
+
+  aifoot-engine:
+    build:
+      context: ../../apps/aifoot-engine
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8001"
+    environment:
+      - ENV=development
+    networks:
+      - fluxsum-network
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - fluxsum-network
+
+  postgres:
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=fluxsum
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=fluxsum
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - fluxsum-network
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    volumes:
+      - clickhouse-data:/var/lib/clickhouse
+    networks:
+      - fluxsum-network
+
+networks:
+  fluxsum-network:
+    driver: bridge
+
+volumes:
+  redis-data:
+  postgres-data:
+  clickhouse-data:

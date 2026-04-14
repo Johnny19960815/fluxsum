@@ -1,0 +1,14 @@
+{
+  "name": "@fluxsum/eslint-config",
+  "version": "0.1.0",
+  "private": true,
+  "description": "FluxSum 全局 ESLint 配置",
+  "main": "index.js",
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.15.0",
+    "@typescript-eslint/parser": "^8.15.0",
+    "eslint": "^9.15.0",
+    "eslint-plugin-react": "^7.37.0",
+    "eslint-plugin-react-hooks": "^5.0.0"
+  }
+}

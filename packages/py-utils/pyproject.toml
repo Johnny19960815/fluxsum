@@ -1,0 +1,21 @@
+[project]
+name = "fluxsum-py-utils"
+version = "0.1.0"
+description = "FluxSum Python 共享工具库"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115.0",
+    "grpcio>=1.68.0",
+    "pydantic>=2.10.0",
+    "httpx>=0.28.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.0",
+    "ruff>=0.8.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

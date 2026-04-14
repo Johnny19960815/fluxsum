@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hub-central-server
+  namespace: fluxsum
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hub-central-server
+  template:
+    metadata:
+      labels:
+        app: hub-central-server
+    spec:
+      containers:
+        - name: hub-central-server
+          image: fluxsum/hub-central-server:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: ENV
+              value: "production"
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: fluxsum-secrets
+                  key: jwt-secret
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hub-central-server
+  namespace: fluxsum
+spec:
+  selector:
+    app: hub-central-server
+  ports:
+    - port: 8080
+      targetPort: 8080
+  type: ClusterIP

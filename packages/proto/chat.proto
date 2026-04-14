@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package fluxsum.chat;
+
+option go_package = "github.com/fluxsum/proto/chat";
+
+import "common.proto";
+
+service ChatService {
+  rpc SendMessage(SendMessageRequest) returns (SendMessageResponse);
+  rpc GetMessages(GetMessagesRequest) returns (GetMessagesResponse);
+  rpc StreamMessages(StreamMessagesRequest) returns (stream ChatMessage);
+}
+
+message ChatMessage {
+  string id = 1;
+  string conversation_id = 2;
+  string sender_id = 3;
+  string content = 4;
+  MessageType type = 5;
+  int64 created_at = 6;
+  map<string, string> metadata = 7;
+}
+
+enum MessageType {
+  MESSAGE_TYPE_UNSPECIFIED = 0;
+  MESSAGE_TYPE_TEXT = 1;
+  MESSAGE_TYPE_IMAGE = 2;
+  MESSAGE_TYPE_FILE = 3;
+  MESSAGE_TYPE_SYSTEM = 4;
+}
+
+message SendMessageRequest {
+  string conversation_id = 1;
+  string content = 2;
+  MessageType type = 3;
+  map<string, string> metadata = 4;
+}
+
+message SendMessageResponse {
+  ChatMessage message = 1;
+}
+
+message GetMessagesRequest {
+  string conversation_id = 1;
+  fluxsum.common.Pagination pagination = 2;
+}
+
+message GetMessagesResponse {
+  repeated ChatMessage messages = 1;
+  fluxsum.common.Pagination pagination = 2;
+}
+
+message StreamMessagesRequest {
+  string conversation_id = 1;
+}
