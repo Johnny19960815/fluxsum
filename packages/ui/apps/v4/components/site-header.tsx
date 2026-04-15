@@ -7,6 +7,7 @@ import { Icons } from "@/components/icons"
 import { MainNav } from "@/components/main-nav"
 import { MobileNav } from "@/components/mobile-nav"
 import { ModeSwitcher } from "@/components/mode-switcher"
+import { ThemePresetSwitcher } from "@/components/theme-preset-switcher"
 import { Separator } from "@/registry/new-york-v4/ui/separator"
 import { Button } from "@/registry/new-york-v4/ui/button"
 
@@ -39,6 +40,7 @@ export function SiteHeader() {
               <CommandMenu tree={pageTree} colors={[]} navItems={siteConfig.navItems} />
             </div>
             <Separator orientation="vertical" className="ml-2 hidden lg:block" />
+            <ThemePresetSwitcher />
             <ModeSwitcher />
           </div>
         </div>

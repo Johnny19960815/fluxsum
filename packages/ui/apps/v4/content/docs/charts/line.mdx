@@ -1,0 +1,64 @@
+---
+title: Line Chart
+description: 折线图，适合展示数据随时间的变化趋势。基于 Recharts 构建。
+component: true
+---
+
+## 折线图
+
+折线图通过连接数据点来展示变化趋势，适合时间序列数据。
+
+### 基础折线图
+
+```tsx
+import { CartesianGrid, Line, LineChart, XAxis } from "recharts"
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
+
+const data = [
+  { month: "1月", desktop: 186, mobile: 80 },
+  { month: "2月", desktop: 305, mobile: 200 },
+  { month: "3月", desktop: 237, mobile: 120 },
+  { month: "4月", desktop: 73, mobile: 190 },
+  { month: "5月", desktop: 209, mobile: 130 },
+  { month: "6月", desktop: 214, mobile: 140 },
+]
+
+const config = {
+  desktop: { label: "桌面端", color: "var(--chart-1)" },
+  mobile: { label: "移动端", color: "var(--chart-2)" },
+}
+
+export function LineChartDemo() {
+  return (
+    <ChartContainer config={config} className="min-h-[200px] w-full">
+      <LineChart data={data}>
+        <CartesianGrid vertical={false} />
+        <XAxis dataKey="month" tickLine={false} axisLine={false} />
+        <ChartTooltip content={<ChartTooltipContent />} />
+        <Line type="monotone" dataKey="desktop" stroke="var(--color-desktop)" strokeWidth={2} dot={false} />
+        <Line type="monotone" dataKey="mobile" stroke="var(--color-mobile)" strokeWidth={2} dot={false} />
+      </LineChart>
+    </ChartContainer>
+  )
+}
+```
+
+### 变体
+
+- **带圆点折线图**：将 `dot` 设为 `true` 或自定义 `dot` 组件。
+- **曲线折线图**：`type="monotone"` 为默认平滑曲线，可选 `"linear"`、`"step"`、`"natural"`。
+- **双 Y 轴**：添加两个 `<YAxis>`，分别绑定不同的 `dataKey`。
+- **带标签折线图**：使用 `<LabelList>` 在数据点旁显示数值。
+- **虚线折线图**：设置 `strokeDasharray="5 5"` 创建虚线效果。
+
+### Props
+
+| 属性 | 说明 |
+| :--- | :--- |
+| `type` | 线条类型：`monotone`、`linear`、`step`、`natural` |
+| `dataKey` | 数据字段名 |
+| `stroke` | 线条颜色 |
+| `strokeWidth` | 线条宽度 |
+| `dot` | 是否显示数据点 |
+| `strokeDasharray` | 虚线样式 |
+

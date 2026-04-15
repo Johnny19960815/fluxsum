@@ -61,18 +61,33 @@ const Video = React.forwardRef<HTMLDivElement, VideoProps>(
     return (
       <div
         ref={ref}
-        className={cn(videoVariants({ variant }), className)}
+        className={cn('group relative', videoVariants({ variant }), className)}
         style={{ width, height, maxWidth, maxHeight }}
       >
         {preview && !isPlaying && !hasError && (
           <button
             type="button"
-            className="absolute inset-0 z-10 flex cursor-pointer items-center justify-center bg-black/20 transition-opacity hover:bg-black/30 active:bg-black/40"
+            className={cn(
+              'absolute inset-0 z-10 flex cursor-pointer items-center justify-center',
+              'bg-gradient-to-b from-black/30 via-black/10 to-black/45',
+              'transition-[background] duration-300 ease-out',
+              'hover:from-black/35 hover:via-black/15 hover:to-black/50',
+              'active:from-black/40 active:via-black/20 active:to-black/55',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+            )}
             onClick={handlePlayClick}
             aria-label="播放视频"
           >
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 text-foreground shadow-lg transition-transform hover:scale-110 active:scale-95">
-              <PlayIcon className="ml-0.5 h-5 w-5" />
+            <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.12)_0%,transparent_65%)]" />
+            <div
+              className={cn(
+                'relative flex h-14 w-14 items-center justify-center rounded-full',
+                'bg-background/95 text-primary shadow-lg ring-1 ring-border/60',
+                'backdrop-blur-sm transition-transform duration-200 ease-out',
+                'group-hover:scale-105 group-active:scale-95',
+              )}
+            >
+              <PlayIcon className="ml-0.5 h-6 w-6 text-primary drop-shadow-sm" />
             </div>
           </button>
         )}

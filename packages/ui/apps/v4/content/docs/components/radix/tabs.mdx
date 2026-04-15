@@ -11,7 +11,7 @@ links:
 <ComponentPreview
   styleName="new-york-v4"
   name="tabs-demo"
-  previewClassName="h-96"
+  previewClassName="min-h-[32rem]"
 />
 
 ## 安装
@@ -80,6 +80,17 @@ Tabs
 │   └── TabsTrigger
 ├── TabsContent
 └── TabsContent
+```
+
+## 样式变体
+
+`TabsList` 支持 `variant="nav"`：悬停时显示 `muted` 背景，选中项仅显示底部主题色（`primary`）指示条，无整块选中背景。
+
+```tsx showLineNumbers
+<TabsList variant="nav">
+  <TabsTrigger value="home">Home</TabsTrigger>
+  <TabsTrigger value="components">Components</TabsTrigger>
+</TabsList>
 ```
 
 ## 示例

@@ -1,0 +1,110 @@
+---
+title: Tooltip
+description: 图表提示框组件，用于在鼠标悬停时显示详细数据。
+component: true
+---
+
+## 图表提示框
+
+图表提示框包含标签、名称、指示器和值。你可以组合使用这些来自定义你的提示框。
+
+Chart 组件附带了 `<ChartTooltip>` 和 `<ChartTooltipContent>` 两个组件。
+
+```tsx
+import { ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
+```
+
+```tsx
+<ChartTooltip content={<ChartTooltipContent />} />
+```
+
+### 基础用法
+
+```tsx
+<ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+  <BarChart data={chartData}>
+    <CartesianGrid vertical={false} />
+    <XAxis dataKey="month" tickLine={false} axisLine={false} />
+    <ChartTooltip content={<ChartTooltipContent />} />
+    <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
+  </BarChart>
+</ChartContainer>
+```
+
+### 属性
+
+你可以使用以下属性来自定义提示框。
+
+| 属性 | 类型 | 说明 |
+| :--- | :--- | :--- |
+| `labelKey` | `string` | 用于标签的配置或数据键 |
+| `nameKey` | `string` | 用于名称的配置或数据键 |
+| `indicator` | `"dot" \| "line" \| "dashed"` | 提示框的指示器样式 |
+| `hideLabel` | `boolean` | 是否隐藏标签 |
+| `hideIndicator` | `boolean` | 是否隐藏指示器 |
+
+### 自定义 labelKey / nameKey
+
+使用 `labelKey` 和 `nameKey` 属性为提示框使用自定义键：
+
+```tsx
+const chartData = [
+  { browser: "chrome", visitors: 187, fill: "var(--color-chrome)" },
+  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
+]
+
+const chartConfig = {
+  visitors: { label: "总访客" },
+  chrome: { label: "Chrome", color: "var(--chart-1)" },
+  safari: { label: "Safari", color: "var(--chart-2)" },
+}
+```
+
+```tsx
+<ChartTooltip
+  content={<ChartTooltipContent labelKey="visitors" nameKey="browser" />}
+/>
+```
+
+### 颜色
+
+颜色自动从图表配置中引用，无需手动设置。
+
+### 指示器样式
+
+提示框支持三种指示器样式：
+
+- **dot**（默认）：小圆点指示器
+- **line**：线条指示器
+- **dashed**：虚线指示器
+
+```tsx
+<ChartTooltip content={<ChartTooltipContent indicator="line" />} />
+```
+
+## 图例
+
+使用 `<ChartLegend>` 和 `<ChartLegendContent>` 组件为图表添加图例。
+
+```tsx
+import { ChartLegend, ChartLegendContent } from "@/components/ui/chart"
+```
+
+```tsx
+<ChartLegend content={<ChartLegendContent />} />
+```
+
+### 自定义 nameKey
+
+```tsx
+<ChartLegend content={<ChartLegendContent nameKey="browser" />} />
+```
+
+## 无障碍
+
+在图表组件上开启 `accessibilityLayer` 属性来添加键盘访问和屏幕阅读器支持：
+
+```tsx
+<LineChart accessibilityLayer />
+```
+

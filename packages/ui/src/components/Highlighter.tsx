@@ -51,8 +51,10 @@ const Highlighter = React.forwardRef<HTMLDivElement, HighlighterProps>(
     },
     ref,
   ) => {
-    const content = typeof children === 'string' ? children.trim() : String(children || '')
-    const displayName = fileName || language
+    const content =
+      typeof children === 'string' ? children.trim() : String(children || '')
+
+    const badge = fileName || (showLanguage ? language : null)
 
     return (
       <div
@@ -61,16 +63,27 @@ const Highlighter = React.forwardRef<HTMLDivElement, HighlighterProps>(
         className={cn(highlighterVariants({ variant, wrap }), className)}
         {...props}
       >
+        {fileName && (
+          <div className="flex items-center border-b border-border px-4 py-1.5 text-xs text-muted-foreground">
+            {fileName}
+          </div>
+        )}
+
         {copyable && (
           <div className="absolute right-2 top-2 z-10 transition-opacity sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100">
-            <CopyButton content={content} className="h-7 w-7 bg-background/80 backdrop-blur-sm" />
+            <CopyButton
+              content={content}
+              className="h-7 w-7 bg-background/80 backdrop-blur-sm"
+            />
           </div>
         )}
-        {showLanguage && displayName && (
+
+        {showLanguage && !fileName && badge && (
           <div className="absolute bottom-2 right-2 select-none rounded bg-muted-foreground/10 px-1.5 py-0.5 text-[10px] uppercase text-muted-foreground">
-            {displayName}
+            {badge}
           </div>
         )}
+
         <pre className="overflow-x-auto p-4">
           <code className={`language-${language}`}>{content}</code>
         </pre>

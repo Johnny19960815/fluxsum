@@ -13,6 +13,10 @@ export const siteConfig = {
       href: "/docs/components",
       label: "组件",
     },
+    {
+      href: "/docs/charts",
+      label: "图表",
+    },
   ],
 }
 

@@ -1,5 +1,3 @@
-import { AppWindowIcon, CodeIcon } from "lucide-react"
-
 import { Button } from "@/registry/new-york-v4/ui/button"
 import {
   Card,
@@ -20,7 +18,7 @@ import {
 
 export default function TabsDemo() {
   return (
-    <div className="flex w-full max-w-sm flex-col gap-6">
+    <div className="flex w-full max-w-sm flex-col gap-10">
       <Tabs defaultValue="account">
         <TabsList>
           <TabsTrigger value="account">Account</TabsTrigger>
@@ -75,6 +73,32 @@ export default function TabsDemo() {
           </Card>
         </TabsContent>
       </Tabs>
+
+      <div className="space-y-3">
+        <p className="text-sm text-muted-foreground">
+          导航样式（hover 浅底、选中仅底部主题色指示条）
+        </p>
+        <Tabs defaultValue="home" className="w-full">
+          <TabsList variant="nav">
+            <TabsTrigger value="home">Home</TabsTrigger>
+            <TabsTrigger value="components">Components</TabsTrigger>
+            <TabsTrigger value="color">Color</TabsTrigger>
+            <TabsTrigger value="changelog">Changelog</TabsTrigger>
+          </TabsList>
+          <TabsContent value="home" className="mt-4 text-sm text-muted-foreground">
+            当前：Home
+          </TabsContent>
+          <TabsContent value="components" className="mt-4 text-sm text-muted-foreground">
+            当前：Components
+          </TabsContent>
+          <TabsContent value="color" className="mt-4 text-sm text-muted-foreground">
+            当前：Color
+          </TabsContent>
+          <TabsContent value="changelog" className="mt-4 text-sm text-muted-foreground">
+            当前：Changelog
+          </TabsContent>
+        </Tabs>
+      </div>
     </div>
   )
 }

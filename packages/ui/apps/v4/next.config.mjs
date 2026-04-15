@@ -32,6 +32,11 @@ const nextConfig = {
   redirects() {
     return [
       {
+        source: "/charts",
+        destination: "/docs/charts",
+        permanent: false,
+      },
+      {
         source: "/docs/components/:name((?!radix|base|form)[^/]+)",
         destination: "/docs/components/radix/:name",
         permanent: false,

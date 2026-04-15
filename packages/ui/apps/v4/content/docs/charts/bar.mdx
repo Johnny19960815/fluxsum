@@ -1,0 +1,72 @@
+---
+title: Bar Chart
+description: 柱状图，适合展示分类数据的比较。基于 Recharts 构建。
+component: true
+---
+
+## 柱状图
+
+柱状图使用矩形柱体来比较不同类别之间的数值大小。
+
+### 基础柱状图
+
+```tsx
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
+} from "@/components/ui/chart"
+
+const data = [
+  { month: "1月", desktop: 186, mobile: 80 },
+  { month: "2月", desktop: 305, mobile: 200 },
+  { month: "3月", desktop: 237, mobile: 120 },
+  { month: "4月", desktop: 73, mobile: 190 },
+  { month: "5月", desktop: 209, mobile: 130 },
+  { month: "6月", desktop: 214, mobile: 140 },
+]
+
+const config = {
+  desktop: { label: "桌面端", color: "#2563eb" },
+  mobile: { label: "移动端", color: "#60a5fa" },
+}
+
+export function BarChartDemo() {
+  return (
+    <ChartContainer config={config} className="min-h-[200px] w-full">
+      <BarChart accessibilityLayer data={data}>
+        <CartesianGrid vertical={false} />
+        <XAxis dataKey="month" tickLine={false} tickMargin={10} axisLine={false} />
+        <ChartTooltip content={<ChartTooltipContent />} />
+        <ChartLegend content={<ChartLegendContent />} />
+        <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
+        <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+      </BarChart>
+    </ChartContainer>
+  )
+}
+```
+
+### 变体
+
+- **水平柱状图**：设置 `layout="vertical"` 并交换 X/Y 轴。
+- **堆叠柱状图**：添加 `stackId` 将多组数据堆叠在同一柱体中。
+- **分组柱状图**：默认模式，每个类别有独立的柱体。
+- **负值柱状图**：支持负值，自动双向显示。
+- **带标签柱状图**：使用 `<LabelList>` 在柱体上方显示数值。
+- **混合柱状图**：为每个 `Bar` 设置不同的 `fill` 来实现不同颜色。
+- **圆角柱状图**：使用 `radius` 属性设置圆角，如 `radius={[4, 4, 0, 0]}`。
+
+### Props
+
+| 属性 | 说明 |
+| :--- | :--- |
+| `dataKey` | 数据字段名 |
+| `fill` | 填充颜色 |
+| `radius` | 柱体圆角 |
+| `stackId` | 堆叠组 ID |
+| `layout` | 布局方向：`horizontal`（默认）或 `vertical` |
+

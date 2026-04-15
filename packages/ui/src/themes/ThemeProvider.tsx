@@ -22,6 +22,7 @@ function applyThemeTokens(tokens: ThemeTokens, element: HTMLElement) {
   for (const [key, value] of entries) {
     element.style.setProperty(`--${key}`, value)
   }
+  element.style.setProperty('--radius', '0.25rem')
 }
 
 export interface ThemeProviderProps {

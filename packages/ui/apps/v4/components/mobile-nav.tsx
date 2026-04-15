@@ -17,46 +17,13 @@ import {
 } from "@/registry/new-york-v4/ui/popover"
 
 const TOP_LEVEL_SECTIONS = [
-  { name: "Introduction", href: "/docs" },
   {
-    name: "Components",
+    name: "组件",
     href: "/docs/components",
   },
   {
-    name: "Installation",
-    href: "/docs/installation",
-  },
-  {
-    name: "Theming",
-    href: "/docs/theming",
-  },
-  {
-    name: "CLI",
-    href: "/docs/cli",
-  },
-  {
-    name: "RTL",
-    href: "/docs/rtl",
-  },
-  {
-    name: "Skills",
-    href: "/docs/skills",
-  },
-  {
-    name: "MCP Server",
-    href: "/docs/mcp",
-  },
-  {
-    name: "Registry",
-    href: "/docs/registry",
-  },
-  {
-    name: "Forms",
-    href: "/docs/forms",
-  },
-  {
-    name: "Changelog",
-    href: "/docs/changelog",
+    name: "图表",
+    href: "/docs/charts",
   },
 ]
 
@@ -101,7 +68,7 @@ export function MobileNav({
             <span className="sr-only">切换菜单</span>
           </div>
           <span className="flex h-8 items-center text-lg leading-none font-medium">
-            Menu
+            菜单
           </span>
         </Button>
       </PopoverTrigger>
@@ -115,11 +82,11 @@ export function MobileNav({
         <div className="flex flex-col gap-12 overflow-auto px-6 py-6">
           <div className="flex flex-col gap-4">
             <div className="text-sm font-medium text-muted-foreground">
-              Menu
+              导航
             </div>
             <div className="flex flex-col gap-3">
               <MobileLink href="/" onOpenChange={setOpen}>
-                Home
+                首页
               </MobileLink>
               {items.map((item, index) => (
                 <MobileLink key={index} href={item.href} onOpenChange={setOpen}>
@@ -130,7 +97,7 @@ export function MobileNav({
           </div>
           <div className="flex flex-col gap-4">
             <div className="text-sm font-medium text-muted-foreground">
-              Sections
+              分组
             </div>
             <div className="flex flex-col gap-3">
               {TOP_LEVEL_SECTIONS.map(({ name, href }) => {

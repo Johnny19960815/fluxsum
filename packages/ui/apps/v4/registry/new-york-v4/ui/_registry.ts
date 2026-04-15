@@ -604,25 +604,6 @@ export const ui: Registry["items"] = [
     ],
   },
   {
-    name: "toast",
-    type: "registry:ui",
-    dependencies: ["radix-ui"],
-    files: [
-      {
-        path: "ui/toast.tsx",
-        type: "registry:ui",
-      },
-      {
-        path: "hooks/use-toast.ts",
-        type: "registry:hook",
-      },
-      {
-        path: "ui/toaster.tsx",
-        type: "registry:ui",
-      },
-    ],
-  },
-  {
     name: "toggle",
     type: "registry:ui",
     dependencies: ["radix-ui"],

@@ -37,7 +37,11 @@ function computeDiff(oldContent: string, newContent: string): DiffLine[] {
   let ni = 0
 
   while (oi < oldLines.length || ni < newLines.length) {
-    if (oi < oldLines.length && ni < newLines.length && oldLines[oi] === newLines[ni]) {
+    if (
+      oi < oldLines.length &&
+      ni < newLines.length &&
+      oldLines[oi] === newLines[ni]
+    ) {
       result.push({
         type: 'unchanged',
         content: oldLines[oi],
@@ -79,6 +83,38 @@ function computeDiff(oldContent: string, newContent: string): DiffLine[] {
   return result
 }
 
+type SplitRow = {
+  left: DiffLine | null
+  right: DiffLine | null
+}
+
+function toSplitRows(diff: DiffLine[]): SplitRow[] {
+  const rows: SplitRow[] = []
+  let i = 0
+  while (i < diff.length) {
+    const line = diff[i]
+    if (line.type === 'unchanged') {
+      rows.push({ left: line, right: line })
+      i++
+    } else if (line.type === 'removed') {
+      const next = diff[i + 1]
+      if (next && next.type === 'added') {
+        rows.push({ left: line, right: next })
+        i += 2
+      } else {
+        rows.push({ left: line, right: null })
+        i++
+      }
+    } else {
+      rows.push({ left: null, right: line })
+      i++
+    }
+  }
+  return rows
+}
+
+export type CodeDiffViewMode = 'split' | 'unified'
+
 export interface CodeDiffProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof codeDiffVariants> {
@@ -86,6 +122,7 @@ export interface CodeDiffProps
   newContent: string
   language?: string
   fileName?: string
+  viewMode?: CodeDiffViewMode
   showHeader?: boolean
 }
 
@@ -96,6 +133,7 @@ const CodeDiff = React.forwardRef<HTMLDivElement, CodeDiffProps>(
       newContent,
       language,
       fileName,
+      viewMode = 'unified',
       showHeader = true,
       variant,
       className,
@@ -103,7 +141,10 @@ const CodeDiff = React.forwardRef<HTMLDivElement, CodeDiffProps>(
     },
     ref,
   ) => {
-    const diff = React.useMemo(() => computeDiff(oldContent, newContent), [oldContent, newContent])
+    const diff = React.useMemo(
+      () => computeDiff(oldContent, newContent),
+      [oldContent, newContent],
+    )
 
     const stats = React.useMemo(() => {
       let additions = 0
@@ -114,6 +155,11 @@ const CodeDiff = React.forwardRef<HTMLDivElement, CodeDiffProps>(
       }
       return { additions, deletions }
     }, [diff])
+
+    const splitRows = React.useMemo(
+      () => (viewMode === 'split' ? toSplitRows(diff) : []),
+      [diff, viewMode],
+    )
 
     return (
       <div
@@ -128,42 +174,104 @@ const CodeDiff = React.forwardRef<HTMLDivElement, CodeDiffProps>(
             </span>
             <div className="flex gap-2 text-xs">
               {stats.additions > 0 && (
-                <span className="text-green-600 dark:text-green-400">+{stats.additions}</span>
+                <span className="text-green-600 dark:text-green-400">
+                  +{stats.additions}
+                </span>
               )}
               {stats.deletions > 0 && (
-                <span className="text-red-600 dark:text-red-400">-{stats.deletions}</span>
+                <span className="text-red-600 dark:text-red-400">
+                  -{stats.deletions}
+                </span>
               )}
             </div>
           </div>
         )}
+
         <div className="overflow-x-auto">
-          <table className="w-full border-collapse">
-            <tbody>
-              {diff.map((line, i) => (
-                <tr
-                  key={i}
-                  className={cn(
-                    line.type === 'added' && 'bg-green-500/10',
-                    line.type === 'removed' && 'bg-red-500/10',
-                  )}
-                >
-                  <td className="w-10 select-none px-2 text-right text-xs text-muted-foreground/50">
-                    {line.lineNumber.old ?? ''}
-                  </td>
-                  <td className="w-10 select-none px-2 text-right text-xs text-muted-foreground/50">
-                    {line.lineNumber.new ?? ''}
-                  </td>
-                  <td className="w-5 select-none text-center text-xs">
-                    {line.type === 'added' && <span className="text-green-600 dark:text-green-400">+</span>}
-                    {line.type === 'removed' && <span className="text-red-600 dark:text-red-400">−</span>}
-                  </td>
-                  <td className="whitespace-pre px-3 py-0.5">
-                    {line.content}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          {viewMode === 'unified' ? (
+            <table className="w-full border-collapse">
+              <tbody>
+                {diff.map((line, i) => (
+                  <tr
+                    key={i}
+                    className={cn(
+                      line.type === 'added' && 'bg-green-500/10',
+                      line.type === 'removed' && 'bg-red-500/10',
+                    )}
+                  >
+                    <td className="w-10 select-none px-2 text-right text-xs text-muted-foreground/50">
+                      {line.lineNumber.old ?? ''}
+                    </td>
+                    <td className="w-10 select-none px-2 text-right text-xs text-muted-foreground/50">
+                      {line.lineNumber.new ?? ''}
+                    </td>
+                    <td className="w-5 select-none text-center text-xs">
+                      {line.type === 'added' && (
+                        <span className="text-green-600 dark:text-green-400">
+                          +
+                        </span>
+                      )}
+                      {line.type === 'removed' && (
+                        <span className="text-red-600 dark:text-red-400">
+                          −
+                        </span>
+                      )}
+                    </td>
+                    <td className="whitespace-pre px-3 py-0.5">
+                      {line.content}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <table className="w-full border-collapse">
+              <tbody>
+                {splitRows.map((row, i) => (
+                  <tr key={i}>
+                    {/* Left (old) */}
+                    <td className="w-10 select-none border-r border-border/40 px-2 text-right text-xs text-muted-foreground/50">
+                      {row.left?.lineNumber.old ?? ''}
+                    </td>
+                    <td className="w-5 select-none border-r border-border/40 text-center text-xs">
+                      {row.left?.type === 'removed' && (
+                        <span className="text-red-600 dark:text-red-400">
+                          −
+                        </span>
+                      )}
+                    </td>
+                    <td
+                      className={cn(
+                        'w-1/2 whitespace-pre border-r border-border/40 px-3 py-0.5',
+                        row.left?.type === 'removed' && 'bg-red-500/10',
+                      )}
+                    >
+                      {row.left?.content ?? ''}
+                    </td>
+                    {/* Right (new) */}
+                    <td className="w-10 select-none border-r border-border/40 px-2 text-right text-xs text-muted-foreground/50">
+                      {row.right?.lineNumber.new ?? ''}
+                    </td>
+                    <td className="w-5 select-none border-r border-border/40 text-center text-xs">
+                      {row.right?.type === 'added' && (
+                        <span className="text-green-600 dark:text-green-400">
+                          +
+                        </span>
+                      )}
+                    </td>
+                    <td
+                      className={cn(
+                        'w-1/2 whitespace-pre px-3 py-0.5',
+                        row.right?.type === 'added' && 'bg-green-500/10',
+                      )}
+                    >
+                      {row.right?.content ?? ''}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     )

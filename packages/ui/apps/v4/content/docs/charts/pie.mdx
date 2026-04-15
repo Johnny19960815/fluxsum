@@ -1,0 +1,64 @@
+---
+title: Pie Chart
+description: 饼图，适合展示部分与整体的关系。基于 Recharts 构建。
+component: true
+---
+
+## 饼图
+
+饼图用于展示各部分在整体中的占比。
+
+### 基础饼图
+
+```tsx
+import { Pie, PieChart } from "recharts"
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
+
+const data = [
+  { browser: "Chrome", visitors: 275, fill: "var(--color-chrome)" },
+  { browser: "Safari", visitors: 200, fill: "var(--color-safari)" },
+  { browser: "Firefox", visitors: 187, fill: "var(--color-firefox)" },
+  { browser: "Edge", visitors: 173, fill: "var(--color-edge)" },
+  { browser: "Other", visitors: 90, fill: "var(--color-other)" },
+]
+
+const config = {
+  chrome: { label: "Chrome", color: "var(--chart-1)" },
+  safari: { label: "Safari", color: "var(--chart-2)" },
+  firefox: { label: "Firefox", color: "var(--chart-3)" },
+  edge: { label: "Edge", color: "var(--chart-4)" },
+  other: { label: "其他", color: "var(--chart-5)" },
+}
+
+export function PieChartDemo() {
+  return (
+    <ChartContainer config={config} className="mx-auto aspect-square max-h-[250px]">
+      <PieChart>
+        <ChartTooltip content={<ChartTooltipContent nameKey="browser" />} />
+        <Pie data={data} dataKey="visitors" nameKey="browser" innerRadius={60} />
+      </PieChart>
+    </ChartContainer>
+  )
+}
+```
+
+### 变体
+
+- **实心饼图**：移除 `innerRadius` 获得标准饼图。
+- **环形图（Donut）**：设置 `innerRadius` 为正值，如 `innerRadius={60}`。
+- **带标签**：使用 `<Label>` 或 `labelLine` 在扇区旁显示文字。
+- **交互式**：结合 `activeIndex` 和 `onMouseEnter` 高亮扇区。
+- **堆叠环形图**：使用多个 `<Pie>` 组件，设置不同的 `innerRadius` 和 `outerRadius`。
+
+### Props
+
+| 属性 | 说明 |
+| :--- | :--- |
+| `data` | 数据数组 |
+| `dataKey` | 数值字段名 |
+| `nameKey` | 名称字段名 |
+| `innerRadius` | 内半径（设为 0 为实心饼图） |
+| `outerRadius` | 外半径 |
+| `fill` | 默认填充颜色 |
+| `labelLine` | 是否显示引导线 |
+

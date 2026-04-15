@@ -1,0 +1,63 @@
+---
+title: Area Chart
+description: 面积图，适合展示趋势与累积数据。基于 Recharts 构建。
+component: true
+---
+
+## 面积图
+
+面积图用于显示定量数据随时间变化的趋势。面积在折线下方被填充，强调量级与趋势。
+
+### 基础面积图
+
+```tsx
+import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
+
+const data = [
+  { month: "1月", desktop: 186, mobile: 80 },
+  { month: "2月", desktop: 305, mobile: 200 },
+  { month: "3月", desktop: 237, mobile: 120 },
+  { month: "4月", desktop: 73, mobile: 190 },
+  { month: "5月", desktop: 209, mobile: 130 },
+  { month: "6月", desktop: 214, mobile: 140 },
+]
+
+const config = {
+  desktop: { label: "桌面端", color: "var(--chart-1)" },
+  mobile: { label: "移动端", color: "var(--chart-2)" },
+}
+
+export function AreaChartDemo() {
+  return (
+    <ChartContainer config={config} className="min-h-[200px] w-full">
+      <AreaChart data={data}>
+        <CartesianGrid vertical={false} />
+        <XAxis dataKey="month" tickLine={false} axisLine={false} />
+        <ChartTooltip content={<ChartTooltipContent />} />
+        <Area type="monotone" dataKey="desktop" fill="var(--color-desktop)" stroke="var(--color-desktop)" fillOpacity={0.3} />
+        <Area type="monotone" dataKey="mobile" fill="var(--color-mobile)" stroke="var(--color-mobile)" fillOpacity={0.3} />
+      </AreaChart>
+    </ChartContainer>
+  )
+}
+```
+
+### 变体
+
+- **堆叠面积图**：使用 `stackId` 属性将多个面积堆叠。
+- **渐变填充**：使用 SVG `<defs>` 和 `linearGradient` 创建渐变效果。
+- **步进面积图**：将 `type` 设为 `"step"` 可创建阶梯式面积图。
+- **带圆点面积图**：添加 `<dot>` 属性在数据点处显示圆点。
+
+### Props
+
+| 属性 | 说明 |
+| :--- | :--- |
+| `type` | 插值类型：`monotone`、`linear`、`step` |
+| `dataKey` | 数据字段名 |
+| `fill` | 填充颜色 |
+| `stroke` | 描边颜色 |
+| `fillOpacity` | 填充透明度 |
+| `stackId` | 堆叠组 ID |
+

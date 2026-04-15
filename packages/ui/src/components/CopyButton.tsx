@@ -10,6 +10,8 @@ export interface CopyButtonProps extends Omit<ButtonProps, 'children' | 'content
   icon?: LucideIcon
   copiedIcon?: LucideIcon
   copiedDuration?: number
+  glass?: boolean
+  active?: boolean
 }
 
 const CopyButton = React.forwardRef<HTMLButtonElement, CopyButtonProps>(
@@ -19,6 +21,8 @@ const CopyButton = React.forwardRef<HTMLButtonElement, CopyButtonProps>(
       icon: Icon = CopyIcon,
       copiedIcon: CopiedIcon = CheckIcon,
       copiedDuration = 2000,
+      glass,
+      active,
       className,
       variant = 'ghost',
       size = 'icon',
@@ -31,7 +35,9 @@ const CopyButton = React.forwardRef<HTMLButtonElement, CopyButtonProps>(
     const timerRef = React.useRef<ReturnType<typeof setTimeout>>()
 
     React.useEffect(() => {
-      return () => { clearTimeout(timerRef.current) }
+      return () => {
+        clearTimeout(timerRef.current)
+      }
     }, [])
 
     const handleCopy = React.useCallback(
@@ -66,19 +72,34 @@ const CopyButton = React.forwardRef<HTMLButtonElement, CopyButtonProps>(
     return (
       <Button
         ref={ref}
+        type="button"
         variant={variant}
         size={size}
         className={cn(
-          'relative transition-colors',
-          copied && 'text-green-500',
+          'relative size-9 min-h-9 min-w-9 shrink-0 touch-manipulation transition-colors',
+          glass && 'bg-background/60 backdrop-blur-md',
           className,
         )}
         onClick={handleCopy}
         aria-label={copied ? '已复制' : '复制'}
+        data-state={copied ? 'copied' : active ? 'active' : 'idle'}
         {...props}
       >
-        <span className={cn('transition-transform', copied ? 'scale-110' : 'scale-100')}>
-          {copied ? <CopiedIcon className="h-4 w-4" /> : <Icon className="h-4 w-4" />}
+        <span
+          className={cn(
+            'transition-transform duration-200',
+            copied ? 'scale-110' : 'scale-100',
+          )}
+        >
+          {copied ? (
+            <CopiedIcon
+              className="size-5 shrink-0"
+              stroke="#999999"
+              strokeWidth={2}
+            />
+          ) : (
+            <Icon className="size-5 shrink-0" stroke="#999999" strokeWidth={2} />
+          )}
         </span>
         <span className="sr-only">{copied ? '已复制' : '复制'}</span>
       </Button>

@@ -25,7 +25,16 @@ export function getPagesFromFolder(
   currentBase: string
 ): PageTreePage[] {
   // For the components folder, find the base subfolder.
-  if (folder.$id === "components" || folder.name === "Components") {
+  if (folder.$id === "charts" || folder.name === "Charts") {
+    return folder.children.filter(
+      (child): child is PageTreePage => child.type === "page"
+    )
+  }
+
+  if (
+    folder.$id === "components" ||
+    folder.name === "Components"
+  ) {
     for (const child of folder.children) {
       if (child.type === "folder") {
         // Match by $id or by name.

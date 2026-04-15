@@ -1,0 +1,63 @@
+---
+title: Radial Chart
+description: 径向图（放射状柱状图），适合在环形空间中展示数据。基于 Recharts 构建。
+component: true
+---
+
+## 径向图
+
+径向图在环形空间中展示数据，类似于柱状图的圆形变体。
+
+### 基础径向图
+
+```tsx
+import { RadialBar, RadialBarChart } from "recharts"
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
+
+const data = [
+  { browser: "Chrome", visitors: 275, fill: "var(--color-chrome)" },
+  { browser: "Safari", visitors: 200, fill: "var(--color-safari)" },
+  { browser: "Firefox", visitors: 187, fill: "var(--color-firefox)" },
+  { browser: "Edge", visitors: 173, fill: "var(--color-edge)" },
+  { browser: "Other", visitors: 90, fill: "var(--color-other)" },
+]
+
+const config = {
+  chrome: { label: "Chrome", color: "var(--chart-1)" },
+  safari: { label: "Safari", color: "var(--chart-2)" },
+  firefox: { label: "Firefox", color: "var(--chart-3)" },
+  edge: { label: "Edge", color: "var(--chart-4)" },
+  other: { label: "其他", color: "var(--chart-5)" },
+}
+
+export function RadialChartDemo() {
+  return (
+    <ChartContainer config={config} className="mx-auto aspect-square max-h-[250px]">
+      <RadialBarChart data={data} innerRadius={30} outerRadius={110}>
+        <ChartTooltip content={<ChartTooltipContent nameKey="browser" />} />
+        <RadialBar dataKey="visitors" />
+      </RadialBarChart>
+    </ChartContainer>
+  )
+}
+```
+
+### 变体
+
+- **带标签**：使用 `<Label>` 或 `<LabelList>` 在环上显示数值。
+- **带网格**：添加 `<PolarGrid>` 显示背景网格。
+- **堆叠径向图**：使用多个 `<RadialBar>` 叠加。
+- **半圆径向图**：设置 `startAngle` 和 `endAngle` 实现半圆效果。
+- **形状定制**：通过 `cornerRadius` 设置圆角，`background` 显示背景环。
+
+### Props
+
+| 属性 | 说明 |
+| :--- | :--- |
+| `dataKey` | 数值字段名 |
+| `innerRadius` | 内半径 |
+| `outerRadius` | 外半径 |
+| `fill` | 填充颜色 |
+| `cornerRadius` | 圆角半径 |
+| `startAngle` / `endAngle` | 起止角度 |
+

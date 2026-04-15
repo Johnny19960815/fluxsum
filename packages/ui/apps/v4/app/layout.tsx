@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next"
 import { siteConfig } from "@/lib/config"
 import { fontVariables } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
+import { FluxThemePresetProvider } from "@/components/flux-theme-preset-provider"
 import { ThemeProvider } from "@/components/theme-provider"
 import { TooltipProvider } from "@/registry/new-york-v4/ui/tooltip"
 import { Toaster } from "@/registry/new-york-v4/ui/sonner"
@@ -45,10 +46,12 @@ export default function RootLayout({
         )}
       >
         <ThemeProvider>
-          <TooltipProvider delayDuration={0}>
-            {children}
-            <Toaster position="top-center" />
-          </TooltipProvider>
+          <FluxThemePresetProvider>
+            <TooltipProvider delayDuration={0}>
+              {children}
+              <Toaster position="top-center" />
+            </TooltipProvider>
+          </FluxThemePresetProvider>
         </ThemeProvider>
       </body>
     </html>

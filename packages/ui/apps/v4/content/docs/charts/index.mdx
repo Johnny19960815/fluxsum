@@ -1,0 +1,42 @@
+---
+title: Charts
+description: 基于 Recharts 构建的图表组件集合。可直接复制粘贴到你的应用中。
+---
+
+## 图表文档
+
+FluxSum UI 提供一组开箱即用的图表组件，底层使用 [Recharts](https://recharts.org/)。
+
+所有图表组件都支持暗色/亮色主题自动切换，并通过 `ChartConfig` 进行颜色和标签的统一配置。
+
+### 可用图表类型
+
+- [Area Chart（面积图）](/docs/charts/area)
+- [Bar Chart（柱状图）](/docs/charts/bar)
+- [Line Chart（折线图）](/docs/charts/line)
+- [Pie Chart（饼图）](/docs/charts/pie)
+- [Radar Chart（雷达图）](/docs/charts/radar)
+- [Radial Chart（径向图）](/docs/charts/radial)
+- [Tooltip（提示框）](/docs/charts/tooltip)
+
+### 快速开始
+
+```bash
+npx shadcn@latest add chart
+```
+
+```tsx
+import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart"
+import { Bar, BarChart } from "recharts"
+
+export function MyChart() {
+  return (
+    <ChartContainer config={chartConfig}>
+      <BarChart data={data}>
+        <Bar dataKey="value" />
+      </BarChart>
+    </ChartContainer>
+  )
+}
+```
+

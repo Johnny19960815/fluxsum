@@ -1,0 +1,63 @@
+---
+title: Radar Chart
+description: 雷达图，适合展示多维数据的对比。基于 Recharts 构建。
+component: true
+---
+
+## 雷达图
+
+雷达图使用从中心向外延伸的辐射轴来展示多维数据，适合多指标对比分析。
+
+### 基础雷达图
+
+```tsx
+import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from "recharts"
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
+
+const data = [
+  { subject: "数学", A: 120, B: 110 },
+  { subject: "语文", A: 98, B: 130 },
+  { subject: "英语", A: 86, B: 130 },
+  { subject: "物理", A: 99, B: 100 },
+  { subject: "化学", A: 85, B: 90 },
+  { subject: "生物", A: 65, B: 85 },
+]
+
+const config = {
+  A: { label: "学生 A", color: "var(--chart-1)" },
+  B: { label: "学生 B", color: "var(--chart-2)" },
+}
+
+export function RadarChartDemo() {
+  return (
+    <ChartContainer config={config} className="mx-auto aspect-square max-h-[250px]">
+      <RadarChart data={data}>
+        <ChartTooltip content={<ChartTooltipContent />} />
+        <PolarAngleAxis dataKey="subject" />
+        <PolarGrid />
+        <Radar dataKey="A" fill="var(--color-A)" fillOpacity={0.5} stroke="var(--color-A)" />
+        <Radar dataKey="B" fill="var(--color-B)" fillOpacity={0.3} stroke="var(--color-B)" />
+      </RadarChart>
+    </ChartContainer>
+  )
+}
+```
+
+### 变体
+
+- **单数据集**：只使用一个 `<Radar>` 组件。
+- **多数据集**：叠加多个 `<Radar>` 进行对比。
+- **带圆点**：设置 `dot` 属性在数据点处显示标记。
+- **填充雷达图**：通过 `fillOpacity` 调整填充透明度。
+- **带网格线**：使用 `<PolarGrid>` 和 `gridType` 属性。
+
+### Props
+
+| 属性 | 说明 |
+| :--- | :--- |
+| `dataKey` | 数值字段名 |
+| `fill` | 填充颜色 |
+| `fillOpacity` | 填充透明度 |
+| `stroke` | 描边颜色 |
+| `dot` | 是否显示数据点 |
+

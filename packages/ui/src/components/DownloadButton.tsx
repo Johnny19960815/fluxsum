@@ -1,24 +1,21 @@
 'use client'
 
 import * as React from 'react'
-import { AlertCircleIcon, DownloadIcon, LoaderIcon, type LucideIcon } from 'lucide-react'
+import { DownloadIcon, type LucideIcon } from 'lucide-react'
 import { cn } from '../lib/utils'
 import { Button, type ButtonProps } from './Button'
 
-export type DownloadState = 'idle' | 'loading' | 'error'
-
 export interface DownloadButtonProps extends Omit<ButtonProps, 'children'> {
-  url?: string
+  blobUrl?: string
   fileName?: string
   fileType?: string
   icon?: LucideIcon
-  onDownloadError?: (error: Error) => void
 }
 
 const DownloadButton = React.forwardRef<HTMLButtonElement, DownloadButtonProps>(
   (
     {
-      url,
+      blobUrl,
       fileName = 'download',
       fileType,
       icon: Icon = DownloadIcon,
@@ -27,70 +24,52 @@ const DownloadButton = React.forwardRef<HTMLButtonElement, DownloadButtonProps>(
       size = 'icon',
       disabled,
       onClick,
-      onDownloadError,
       ...props
     },
     ref,
   ) => {
-    const [state, setState] = React.useState<DownloadState>('idle')
-
     const handleDownload = React.useCallback(
       async (e: React.MouseEvent<HTMLButtonElement>) => {
-        if (!url || disabled || state === 'loading') return
-        setState('loading')
+        if (!blobUrl || disabled) return
         try {
-          const response = await fetch(url)
-          if (!response.ok) {
-            throw new Error(`HTTP ${response.status}: ${response.statusText}`)
-          }
+          const response = await fetch(blobUrl)
+          if (!response.ok) throw new Error(`HTTP ${response.status}`)
           const blob = await response.blob()
-          const blobUrl = URL.createObjectURL(blob)
+          const objectUrl = URL.createObjectURL(blob)
           const a = document.createElement('a')
-          const ext = fileType ? `.${fileType}` : ''
-          a.href = blobUrl
+          const ext = fileType ? `.${fileType.replace(/^\./, '')}` : ''
+          a.href = objectUrl
           a.download = fileName.replace(/\.[^./]+$/, '') + ext
           document.body.appendChild(a)
           a.click()
           document.body.removeChild(a)
-          URL.revokeObjectURL(blobUrl)
-          setState('idle')
-        } catch (error) {
-          setState('error')
-          onDownloadError?.(error instanceof Error ? error : new Error(String(error)))
-          setTimeout(() => setState('idle'), 3000)
+          URL.revokeObjectURL(objectUrl)
+        } catch {
+          // silently fail – matches lobe-ui simplicity
         }
         onClick?.(e)
       },
-      [url, fileName, fileType, disabled, onClick, onDownloadError, state],
+      [blobUrl, fileName, fileType, disabled, onClick],
     )
 
     return (
       <Button
         ref={ref}
+        type="button"
         variant={variant}
         size={size}
         className={cn(
-          'relative transition-colors',
-          state === 'error' && 'text-destructive',
+          'size-9 min-h-9 min-w-9 shrink-0 touch-manipulation transition-colors',
           className,
         )}
-        disabled={disabled || !url || state === 'loading'}
+        disabled={disabled || !blobUrl}
         onClick={handleDownload}
-        aria-label={
-          state === 'loading' ? 'Downloading...' : state === 'error' ? 'Download failed' : 'Download'
-        }
+        aria-label="下载"
         {...props}
       >
-        {state === 'loading' ? (
-          <LoaderIcon className="h-4 w-4 animate-spin" />
-        ) : state === 'error' ? (
-          <AlertCircleIcon className="h-4 w-4" />
-        ) : (
-          <Icon className="h-4 w-4" />
-        )}
+        <Icon className="size-5 shrink-0" stroke="#999999" strokeWidth={2} />
         <span className="sr-only">
-          {state === 'loading' ? 'Downloading...' : state === 'error' ? 'Download failed' : 'Download'}
-          {fileType ? ` ${fileType.toUpperCase()}` : ''}
+          下载{fileType ? ` ${fileType.toUpperCase()}` : ''}
         </span>
       </Button>
     )
