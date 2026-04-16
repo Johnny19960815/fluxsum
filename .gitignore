@@ -46,3 +46,27 @@ packages/ui/.contentlayer
 packages/ui/.idea
 packages/ui/.fleet
 packages/ui/.vscode
+
+# apps
+apps/main/.vscode
+apps/main/.fleet
+apps/main/.idea
+apps/main/.next
+apps/main/.turbo
+apps/main/.contentlayer
+apps/main/.content-collections
+apps/main/.source
+apps/main/.i18n
+apps/main/.i18n-unused-keys-report.json
+apps/main/.i18n-unused-keys-report.json
+apps/main/.i18n-unused-keys-report.json
+apps/main/.i18n-unused-keys-report.json
+apps/main/.i18n-unused-keys-report.json
+apps/main/.i18n-unused-keys-report.json
+apps/main/.i18n-unused-keys-report.json
+apps/main/.i18n-unused-keys-report.json
+apps/main/.i18n-unused-keys-report.json
+apps/main/.i18n-unused-keys-report.json
+
+apps/lobehub
+apps/new-api

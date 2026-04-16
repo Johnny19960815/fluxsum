@@ -21,6 +21,20 @@
     },
     "clean": {
       "cache": false
+    },
+    "i18n:sync": {
+      "cache": false
+    },
+    "i18n:translate": {
+      "dependsOn": ["i18n:sync"],
+      "cache": false
+    },
+    "i18n:validate": {
+      "cache": false
+    },
+    "i18n:upload": {
+      "dependsOn": ["i18n:translate"],
+      "cache": false
     }
   }
 }

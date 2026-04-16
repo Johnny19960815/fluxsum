@@ -1,0 +1,113 @@
+name: 🌐 Auto i18n Translation
+
+on:
+  schedule:
+    # 每天 UTC 02:00（北京时间 10:00）
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      project_dir:
+        description: 'Project directory for translation (relative to repo root)'
+        required: false
+        default: 'packages/i18n'
+      locales:
+        description: 'Comma-separated target locales (empty = all)'
+        required: false
+      namespaces:
+        description: 'Comma-separated namespaces (empty = all)'
+        required: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Sync i18n keys
+        run: bun run i18n:sync --dir ${{ github.event.inputs.project_dir || 'packages/i18n' }}
+
+      - name: Translate
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
+          TRANSLATE_MODEL: ${{ secrets.TRANSLATE_MODEL || 'gpt-4o' }}
+          TRANSLATE_LOCALES: ${{ github.event.inputs.locales }}
+        run: |
+          ARGS="--dir ${{ github.event.inputs.project_dir || 'packages/i18n' }}"
+          if [ -n "${{ github.event.inputs.namespaces }}" ]; then
+            ARGS="$ARGS --ns ${{ github.event.inputs.namespaces }}"
+          fi
+          bun run i18n:translate $ARGS
+
+      - name: Validate translations
+        run: bun run i18n:validate --dir ${{ github.event.inputs.project_dir || 'packages/i18n' }}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'chore(i18n): auto-translate locale files'
+          title: '🌐 chore(i18n): Auto-translate locale files'
+          body: |
+            Automated translation update by GitHub Actions.
+
+            - Source language: `zh-CN`
+            - Model: `${{ secrets.TRANSLATE_MODEL || 'gpt-4o' }}`
+            - Triggered by: `${{ github.event_name }}`
+          branch: chore/auto-i18n-translate
+          delete-branch: true
+          labels: i18n,automated
+          add-paths: |
+            **/locales/**/*.json
+            **/i18n/locales/**
+
+  upload-cdn:
+    needs: translate
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        target: [cn, global]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: chore/auto-i18n-translate
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Upload to CDN (${{ matrix.target }})
+        env:
+          ALIYUN_OSS_REGION: ${{ secrets.ALIYUN_OSS_REGION }}
+          ALIYUN_OSS_BUCKET: ${{ secrets.ALIYUN_OSS_BUCKET }}
+          ALIYUN_ACCESS_KEY_ID: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
+          ALIYUN_ACCESS_KEY_SECRET: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
+          CF_R2_ACCOUNT_ID: ${{ secrets.CF_R2_ACCOUNT_ID }}
+          CF_R2_ACCESS_KEY_ID: ${{ secrets.CF_R2_ACCESS_KEY_ID }}
+          CF_R2_ACCESS_KEY_SECRET: ${{ secrets.CF_R2_ACCESS_KEY_SECRET }}
+          CF_R2_BUCKET: ${{ secrets.CF_R2_BUCKET }}
+        run: |
+          bun run i18n:upload --project fluxsum --target ${{ matrix.target }}
